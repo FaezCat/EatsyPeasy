@@ -1,6 +1,15 @@
 import "./App.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Home from "./components/Home";
+import Nav from "./components/Nav";
+import Question_1 from "./components/Question_1";
 
 function App() {
   useEffect(() => {
@@ -15,9 +24,15 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <h1>Poll Data</h1>
-    </div>
+    <Router>
+      <div>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Home/>}>
+          </Route>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 export default App;
