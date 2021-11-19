@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   resources :polls, only: [:index]
-
+  resources :users, only: [:index]
 
 
   # The priority is based upon order of creation: first created -> highest priority.
