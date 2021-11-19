@@ -8,6 +8,10 @@ function App() {
     axios.get("http://localhost:3000/polls").then((res) => {
       console.log(res);
     });
+
+    axios.get("http://localhost:3000/users").then((res) => {
+      console.log(res);
+    });
   }, []);
 
   return (
