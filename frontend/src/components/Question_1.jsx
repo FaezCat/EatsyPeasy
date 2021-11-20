@@ -13,7 +13,7 @@ export default function Question_1() {
         <input type="text" placeholder="What kind of food are you craving?" name="search"></input>
       </form>
       
-      <Button confirm onClick={onSave}>Save</Button>
+      {/* <Button confirm onClick={onSave}>Save</Button> */}
     </Fragment>
   )
 }
