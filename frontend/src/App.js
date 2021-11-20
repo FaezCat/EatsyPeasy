@@ -1,29 +1,26 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
-import Home from "./components/Home";
 import Nav from "./components/Nav";
 import QuestionOne from "./components/QuestionOne";
 import QuestionTwo from "./components/QuestionTwo";
-//comment
+import QuestionThree from "./components/QuestionThree";
+import Results from "./components/Results";
+
 function App() {
+  const [answers, setAnswers] = useState({
+    answerOne: "",
+    answerTwo: [],
+    answerThree: [],
+  });
 
-  const [sampleState, setSampleState] = useState(1)
-
-  function alterState(newState) {
-    setSampleState(newState);
-  }
-
-  console.log("state value:", sampleState);
+  const setAnswerOne = (answerOne) => setAnswers({ ...answers, answerOne });
+  const setAnswerTwo = (answerTwo) => setAnswers({ ...answers, answerTwo });
+  const setAnswerThree = (answerThree) =>
+    setAnswers({ ...answers, answerThree });
 
   useEffect(() => {
-    // for demo purposes, hardcoded URL
     axios.get("http://localhost:3000/polls").then((res) => {
       console.log(res);
     });
@@ -38,12 +35,21 @@ function App() {
       <div>
         <Nav />
         <Routes>
-          <Route exact path="/" element={<QuestionOne clickHandler={alterState}/>} />
-            
-          <Route path="/questiontwo" element={<QuestionTwo/>} />
-          
+          <Route
+            exact
+            path="/"
+            element={<QuestionOne clickHandler={setAnswerOne} />}
+          />
+          <Route
+            path="/questiontwo"
+            element={<QuestionTwo clickHandler={setAnswerTwo} />}
+          />
+          <Route
+            path="/questionthree"
+            element={<QuestionThree clickHandler={setAnswerThree} />}
+          />
+          <Route path="/results" element={<Results />} />
         </Routes>
-        
       </div>
     </Router>
   );

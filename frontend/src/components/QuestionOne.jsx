@@ -27,7 +27,7 @@ export default function QuestionOne(props) {
         </input>
       </form>
       {/* <Button confirm onClick={() => {console.log("saved answer for Q1")}}>Save</Button> */}
-      <Button variant="contained" onClick={() => {props.clickHandler(2); navigate('/questiontwo'); console.log(answer);}}>Save</Button>
+      <Button variant="contained" onClick={() => {props.clickHandler(answer); navigate('/questiontwo'); console.log(answer);}}>Save</Button>
     </Fragment>
   );
 }
