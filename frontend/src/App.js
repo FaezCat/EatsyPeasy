@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -5,13 +6,22 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import { useState, useEffect } from "react";
 import axios from "axios";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
-import Question_1 from "./components/Question_1";
+import QuestionOne from "./components/QuestionOne";
+import QuestionTwo from "./components/QuestionTwo";
 
 function App() {
+
+  const [sampleState, setSampleState] = useState(1)
+
+  function alterState(newState) {
+    setSampleState(newState);
+  }
+
+  console.log("state value:", sampleState);
+
   useEffect(() => {
     // for demo purposes, hardcoded URL
     axios.get("http://localhost:3000/polls").then((res) => {
@@ -28,9 +38,12 @@ function App() {
       <div>
         <Nav />
         <Routes>
-          <Route path="/" element={<Home/>}>
-          </Route>
+          <Route exact path="/" element={<QuestionOne clickHandler={alterState}/>} />
+            
+          <Route path="/questiontwo" element={<QuestionTwo/>} />
+          
         </Routes>
+        
       </div>
     </Router>
   );
