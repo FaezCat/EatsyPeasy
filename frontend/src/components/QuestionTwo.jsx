@@ -30,6 +30,7 @@ export default function QuestionTwo(props) {
 
   const removeChoice = (choice) => {
     const choicesList = [...choices];
+    console.log("choices list:", choicesList);
     for (let i = 0; i < choicesList.length; i++) {
       if (choice === choicesList[i]) {
         console.log("they've matched - the choice is:", choicesList[i])
