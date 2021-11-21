@@ -32,7 +32,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div className="background">
         <Nav />
         <Routes>
           <Route
