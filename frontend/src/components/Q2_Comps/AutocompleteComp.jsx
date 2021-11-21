@@ -7,7 +7,8 @@ import { createFilterOptions } from '@mui/base';
 
 export default function FreeSolo(props) {
 
-  const OPTIONS_LIMIT = 3;
+  // this is the exact number of auto-complete options to be displayed
+  const OPTIONS_LIMIT = 5;
   const defaultFilterOptions = createFilterOptions();
   
   // this filter limits the amount of auto-complete options showing at any given time (there were just too many otherwise)

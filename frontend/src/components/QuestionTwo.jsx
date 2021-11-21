@@ -19,12 +19,26 @@ export default function QuestionTwo(props) {
   }
 
   const addChoice = (choice) => {
+    if (choices.includes(choice)) {
+      return
+    }
+
     if (choice !== null) {
       setChoices((prev) => ([...prev, choice]));
     }
   };
 
-  // const choicesContainer = []; to be used to house the choices
+  const removeChoice = (choice) => {
+    const choicesList = [...choices];
+    for (let i = 0; i < choicesList.length; i++) {
+      if (choice === choicesList[i]) {
+        console.log("they've matched - the choice is:", choicesList[i])
+        choicesList.splice(i, 1);
+        setChoices(choicesList);
+        return;
+      }
+    }
+  }
 
   return(
     <Fragment>
@@ -34,7 +48,7 @@ export default function QuestionTwo(props) {
       <br />
       <FreeSolo onClick={addChoice}/>
       <br />
-      {choices.length > 0 && <DenseTable foodCategories={choices}/>}
+      {choices.length > 0 && <DenseTable foodCategories={choices} deleteFoodCategory={removeChoice}/>}
       <br />
       <Button variant="contained" onClick={
         () => {
