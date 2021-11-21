@@ -14,6 +14,7 @@ function App() {
     answerTwo: [],
     answerThree: [],
   });
+  const [results, setResults] = useState(false);
 
   const setAnswerOne = (answerOne) => setAnswers({ ...answers, answerOne });
   const setAnswerTwo = (answerTwo) => setAnswers({ ...answers, answerTwo });
@@ -24,6 +25,7 @@ function App() {
     const priceRange = [];
     priceRange[0] = pricePoint[0];
     priceRange[1] = priceRange[-1];
+    console.log(priceRange);
     return priceRange;
   };
 
@@ -37,40 +39,33 @@ function App() {
     });
 
     const range = getPrice(answers.answerThree);
-    // const config = {
-    //   url: "https://maps.googleapis.com/maps/api/place/textsearch/json?",
-    //     params: {
-    //     query: `${answers.answerOne} ${answers.answerTwo}`,
-    //     maxprice: range[0],
-    //     minprice: range[1],
-    //     key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY
-    //   },
-    //   headers: {
-    //     'Access-Control-Allow-Origin' : '*',
-    //     'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    //     }
-    // };
-    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants%20in%20Sydney&key=${process.env.REACT_APP_GOOGLE_PLACES_API_KEY}`
-    var config = {
-      method: 'get',
-      url,
-      headers: { }
+
+    //API cors proxy that has some limits (do not use):
+    //const url = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?";
+
+    //API cors proxy that works (for our project scale):
+    const url = "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/textsearch/json?";
+    const params = {
+      query: `${answers.answerOne} ${answers.answerTwo}`,
+      maxprice: range[0],
+      minprice: range[1],
+      key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY
     };
     
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    //sample get: https://maps.googleapis.com/maps/api/place/textsearch/json?query=Downtown Calgary Chinese Vegetarian
-    // axios.get(config).then((res) => {
-    //   console.log(res);
-    // });
+    console.log("params", params);
 
+    if (results === true) {
+      axios.get(url, {params})
+      .then(function (response) {
+        console.log(response);
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
 
-  }, []);
+  }, [results]);
 
   return (
     <Router>
@@ -88,7 +83,7 @@ function App() {
           />
           <Route
             path="/questionthree"
-            element={<QuestionThree clickHandler={setAnswerThree} />}
+            element={<QuestionThree clickHandler={setAnswerThree} setResults={setResults} />}
           />
           <Route path="/results" element={<Results />} />
         </Routes>

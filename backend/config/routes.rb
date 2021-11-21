@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'google_places_api_controller/get_places'
+
   resources :polls, only: [:index]
   resources :users, only: [:index]
   

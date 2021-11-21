@@ -1,0 +1,16 @@
+.all-components-less-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-bar {
+  align-self: center;
+}
+
+.table-and-checklist {
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
