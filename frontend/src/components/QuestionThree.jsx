@@ -36,10 +36,13 @@ export default function QuestionThree(props) {
       </ToggleButton>
       <ToggleButton value={2}>
       💵
-      between $10 and $25
+      between $10 and $20
       </ToggleButton>
       <ToggleButton value={3}>
-      💵💵💵 more than $25
+      💵💵💵 between $20 and $30
+      </ToggleButton>
+      <ToggleButton value={4}>
+      💵💵💵💵 more than $30
       </ToggleButton>
       </ToggleButtonGroup>
       <Button variant="contained" onClick={() => {props.clickHandler(pricePoint); navigate('/results'); props.setResults(true);}}>Next</Button>
