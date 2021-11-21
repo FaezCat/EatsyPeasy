@@ -13,10 +13,8 @@ function createData(name, deleteRow) {
   return { name, deleteRow };
 }
 
-// props.deleteFoodCategory(event.currentTarget.id)
-
 export default function DenseTable(props) {
-  // here we are generating individual rows per chosen food category in addition to the delete button showing for each
+  // here we are generating individual rows per chosen food category in addition to the delete button showing for each + the logic for deleting food categories
   const rows = props.foodCategories.map((category) => (createData(
     category, 
     <IconButton aria-label="delete">
