@@ -24,12 +24,11 @@ export default function DenseTable(props) {
 
   // this is the actual table - the width at the top limits the entire table's width
   return (
-    <TableContainer component={Paper} sx={{ width: '22.5%' }}>
+    <TableContainer component={Paper} sx={{ width: '35%' }}>
       <Table sx={{ maxWidth: 300 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell align="center">Food Category</TableCell>
-            <TableCell align="center">Delete</TableCell>
+            <TableCell align="center" colSpan={2}>Food Category</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

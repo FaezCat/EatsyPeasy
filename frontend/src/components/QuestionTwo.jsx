@@ -7,6 +7,7 @@ import FreeSolo from "./Q2_Comps/Input_Autocomplete_Comp";
 import DenseTable from "./Q2_Comps/Table_Comp";
 // the checkboxes comp
 import CheckboxesGroup from "./Q2_Comps/Checkboxes_Comp";
+import "../styles/QuestionTwo.scss";
 
 
 export default function QuestionTwo(props) {
@@ -68,20 +69,20 @@ export default function QuestionTwo(props) {
       <div className="page-number-display">
         2 of 4
       </div>
-      <br />
-      <FreeSolo onClick={addChoice}/>
-      <br />
-      <div className="table-and-checklist">
-        {choices.length > 0 && <DenseTable foodCategories={choices} deleteFoodCategory={removeChoice}/>}
-        <CheckboxesGroup onCheck={addDietaryPref} onUncheck={removeDietaryPref}/>
-      </div>
-      <br />
+      <div className="all-components-less-button">
+        <FreeSolo className="search-bar" onClick={addChoice}/>
+        <br />
+        <div className="table-and-checklist">
+          {choices.length > 0 && <DenseTable foodCategories={choices} deleteFoodCategory={removeChoice}/>}
+          <CheckboxesGroup onCheck={addDietaryPref} onUncheck={removeDietaryPref}/>
+        </div>
       <Button variant="contained" onClick={
         () => {
-        props.clickHandler(finalQuestionTwoState(choices, dietaryPrefs)); 
-        navigate('/questionthree'); 
+          props.clickHandler(finalQuestionTwoState(choices, dietaryPrefs)); 
+          navigate('/questionthree'); 
         }
       }>Next</Button>
+      </div>
     </Fragment>
   );
 }

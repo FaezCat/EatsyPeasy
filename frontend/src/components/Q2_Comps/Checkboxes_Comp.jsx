@@ -26,19 +26,19 @@ export default function CheckboxesGroup(props) {
     // because the setCheckboxState operation is async, we're checking for the OPPOSITE boolean in each case
     if (checkboxState[checkboxName] === false) {
       if (checkboxName === "vegan") {
-        props.onCheck("vegan options");
+        props.onCheck("vegan");
       } else if (checkboxName === "vegetarian") {
-        props.onCheck("vegetarian options");
+        props.onCheck("vegetarian");
       } else if (checkboxName === "glutenFree") {
-        props.onCheck("gluten free options");
+        props.onCheck("gluten free");
       }
     } else {
       if (checkboxName === "vegan") {
-        props.onUncheck("vegan options");
+        props.onUncheck("vegan");
       } else if (checkboxName === "vegetarian") {
-        props.onUncheck("vegetarian options");
+        props.onUncheck("vegetarian");
       } else if (checkboxName === "glutenFree") {
-        props.onUncheck("gluten free options");
+        props.onUncheck("gluten free");
       }
     }
 
@@ -50,7 +50,7 @@ export default function CheckboxesGroup(props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-        <FormLabel component="legend">Specific Dietary Preferences</FormLabel>
+        <FormLabel component="legend">Dietary Preferences</FormLabel>
         <FormGroup>
           <FormControlLabel
             control={
