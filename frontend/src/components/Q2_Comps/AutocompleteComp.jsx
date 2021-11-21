@@ -1,18 +1,43 @@
 import * as React from 'react';
+import { Fragment, useState } from "react";
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
+import { createFilterOptions } from '@mui/base';
 
-export default function FreeSolo() {
+export default function FreeSolo(props) {
+
+  const OPTIONS_LIMIT = 3;
+  const defaultFilterOptions = createFilterOptions();
+  
+  const filterOptions = (options, state) => {
+    return defaultFilterOptions(options, state).slice(0, OPTIONS_LIMIT);
+  };
+
+  const [value, setValue] = useState("");
+  const [inputValue, setInputValue] = useState("")
+
   return (
+    <Fragment>
     <Stack spacing={1} sx={{ width: 300 }}>
       <Autocomplete
-        id="free-solo-demo"
+        id="food-category"
+        filterOptions={filterOptions}
         freeSolo
         options={restaurantCategories.map((option) => option)}
+        onChange={(event, newValue) => {
+          props.onClick(newValue);
+          setValue(newValue);
+        }}
+        value={value}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
+        inputValue={inputValue}
         renderInput={(params) => <TextField {...params} label="What type of food are you craving?" />}
       />
     </Stack>
+    </Fragment>
   );
 }
 
