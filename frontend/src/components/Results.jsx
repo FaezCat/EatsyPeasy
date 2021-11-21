@@ -13,6 +13,7 @@ export default function Results(props) {
         <SingleResult/>
         <SingleResult/>
       </div>
+      <h3>Need some input? Generate a poll to share with your friends!</h3>
     </Fragment>
  )
 }
