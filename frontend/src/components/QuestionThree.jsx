@@ -1,11 +1,16 @@
 import { Fragment, useState } from "react"
-import {Button, IconButton} from '@mui/material';
+import {Button, IconButton, ToggleButton, ToggleButtonGroup} from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useNavigate } from "react-router-dom"
 
 export default function QuestionThree(props) {
   const navigate = useNavigate();
   const [pricePoint, setPricePoint] = useState([]);
+  //const [formats, setFormats] = React.useState();
+
+  const handlePrice = (event, newPricePoints) => {
+    setPricePoint(newPricePoints);
+  };
 
   return(
     <Fragment>
@@ -14,19 +19,30 @@ export default function QuestionThree(props) {
       </div>
       <h2>How much are you willing to spend?</h2>
       <h3>Pick one or multiple options</h3>
-      {/* <Button confirm onClick={() => {console.log("saved answer for Q1")}}>Save</Button> */}
-      
-      <IconButton color="primary" aria-label="add to shopping cart">
-        <AddShoppingCartIcon />
-      </IconButton>
-      <IconButton color="primary" aria-label="add to shopping cart">
-        <AddShoppingCartIcon />
-      </IconButton>
-      <IconButton color="primary" aria-label="add to shopping cart">
-        <AddShoppingCartIcon />
-      </IconButton>
 
-      <Button variant="contained" onClick={() => {props.clickHandler(pricePoint); navigate('/results'); console.log();}}>Save</Button>
+<ToggleButtonGroup
+      value={pricePoint}
+      onChange={handlePrice}
+      fullWidth={true}
+      size={'large'}
+      color={'success'}
+    >
+      <ToggleButton value={1}
+      style={{border: 'transparent'}}>
+        <Fragment>
+        <h1>💵</h1>
+        less than $10
+        </Fragment>
+      </ToggleButton>
+      <ToggleButton value={2}>
+      💵
+      between $10 and $25
+      </ToggleButton>
+      <ToggleButton value={3}>
+      💵💵💵 more than $25
+      </ToggleButton>
+      </ToggleButtonGroup>
+      <Button variant="contained" onClick={() => {props.clickHandler(pricePoint); navigate('/results'); console.log();}}>Next</Button>
     </Fragment>
   );
 }
