@@ -50,7 +50,7 @@ function App() {
     //     'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
     //     }
     // };
-    const url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants%20in%20Sydney&key=AIzaSyAms5lX7VxJRN93fxutqWRuQqq-jgInboU"
+    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants%20in%20Sydney&key=${process.env.REACT_APP_GOOGLE_PLACES_API_KEY}`
     var config = {
       method: 'get',
       url,
