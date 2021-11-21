@@ -187,7 +187,7 @@ const restaurantCategories = [
   "Sri Lankan",
   "Steakhouses",
   "Supper Clubs",
-  "Sushi Bars",
+  "Sushi",
   "Syrian",
   "Taiwanese",
   "Tapas Bars",

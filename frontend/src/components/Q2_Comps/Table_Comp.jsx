@@ -13,25 +13,22 @@ function createData(name, deleteRow) {
   return { name, deleteRow };
 }
 
-// props.deleteFoodCategory(event.target.id)
-
 export default function DenseTable(props) {
-  // here we are generating individual rows per chosen food category in addition to the delete button showing for each
+  // here we are generating individual rows per chosen food category in addition to the delete button showing for each + the logic for deleting food categories
   const rows = props.foodCategories.map((category) => (createData(
     category, 
-    <IconButton aria-label="delete" id={category} onClick={(event) => props.deleteFoodCategory(event.target.id)}>
-      <DeleteIcon/>
+    <IconButton aria-label="delete">
+      <DeleteIcon id={category} onClickCapture={(event) => props.deleteFoodCategory(event.currentTarget.id)} />
     </IconButton>
 )))
 
   // this is the actual table - the width at the top limits the entire table's width
   return (
-    <TableContainer component={Paper} sx={{ width: '22.5%' }}>
+    <TableContainer component={Paper} sx={{ width: '35%' }}>
       <Table sx={{ maxWidth: 300 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell align="center">Food Category</TableCell>
-            <TableCell align="center">Delete</TableCell>
+            <TableCell align="center" colSpan={2}>Food Category</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
