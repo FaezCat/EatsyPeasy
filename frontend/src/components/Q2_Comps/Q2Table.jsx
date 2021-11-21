@@ -12,8 +12,10 @@ function createData(name, deleteRow) {
 }
 
 export default function DenseTable(props) {
+  // here we are generating individual rows per chosen food category
   const rows = props.foodCategories.map((category) => (createData(category, "delete")))
 
+  // this is the actual table - the width at the top limits the entire table's width
   return (
     <TableContainer component={Paper} sx={{ width: '25%' }}>
       <Table sx={{ maxWidth: 250 }} size="small" aria-label="a dense table">

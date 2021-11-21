@@ -10,6 +10,7 @@ export default function FreeSolo(props) {
   const OPTIONS_LIMIT = 3;
   const defaultFilterOptions = createFilterOptions();
   
+  // this filter limits the amount of auto-complete options showing at any given time (there were just too many otherwise)
   const filterOptions = (options, state) => {
     return defaultFilterOptions(options, state).slice(0, OPTIONS_LIMIT);
   };
@@ -41,6 +42,7 @@ export default function FreeSolo(props) {
   );
 }
 
+// this array contains all of the auto-complete food categories being displayed
 const restaurantCategories = [
   "Afghan",
   "African",
