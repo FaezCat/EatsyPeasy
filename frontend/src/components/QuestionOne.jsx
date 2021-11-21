@@ -1,7 +1,11 @@
-import { Fragment } from "react"
-import { useNavigate } from "react-router-dom"
+import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import LocationOn from '@mui/icons-material/LocationOn';
 import Button from '@mui/material/Button';
-import { useState, useEffect } from "react";
+import "../styles/QuestionOne.scss";
 
 export default function QuestionOne(props) {
   const navigate = useNavigate();
@@ -10,24 +14,31 @@ export default function QuestionOne(props) {
 
   return(
     <Fragment>
-      <div className="page-number-display">
-        1 of 4
+      <div className="question-one-container">
+        <div className="page-number-display">
+          1 of 4
+        </div>
+        <div className="summary">
+          Need help deciding where to eat? EatsyPeasy can help! Answer some simple questions to see your customized selections and even send a poll to your friends!
+        </div>
+        <Box sx={{ '& > :not(style)': { m: 1 } }}>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end', width: 800, maxWidth: '100%'}}>
+            <LocationOn 
+              style={{ fill: '#0198E1' }} 
+              sx={{ color: 'action.active', mr: 1, my: 1, fontSize: 40}} />
+            <TextField 
+              value={answer} 
+              onChange={(event) => setAnswer(event.target.value)} 
+              InputLabelProps={{style: {fontFamily: 'Quicksand, sans-serif'}}} 
+              fullWidth id="input-with-sx" 
+              label="What area do you want to eat in? Ex. Downtown, Vancouver"/>
+          </Box>
+        </Box>
+        <Button 
+          style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
+          onClick={() => {props.clickHandler(answer); navigate('/questiontwo'); console.log(answer);}}>Next
+        </Button>
       </div>
-      <p>
-        Need help deciding where to eat? EatsyPeasy can help! Answer these 3 questions to see your customized selections or send a poll to your friends!
-      </p>
-      <form autoComplete="off" onSubmit={() => props.clickHandler(2)}>
-        <input 
-          type="text" 
-          placeholder="What area do you want to eat in?" 
-          name="search" 
-          value={answer}
-          onChange={(event) => setAnswer(event.target.value)}
-          >
-        </input>
-      </form>
-      {/* <Button confirm onClick={() => {console.log("saved answer for Q1")}}>Save</Button> */}
-      <Button variant="contained" onClick={() => {props.clickHandler(answer); navigate('/questiontwo'); console.log(answer);}}>Save</Button>
     </Fragment>
   );
 }
