@@ -42,7 +42,7 @@ export default function QuestionThree(props) {
       💵💵💵 more than $25
       </ToggleButton>
       </ToggleButtonGroup>
-      <Button variant="contained" onClick={() => {props.clickHandler(pricePoint); navigate('/results'); console.log();}}>Next</Button>
+      <Button variant="contained" onClick={() => {props.clickHandler(pricePoint); navigate('/results'); props.setResults(true);}}>Next</Button>
     </Fragment>
   );
 }
