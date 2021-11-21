@@ -7,6 +7,7 @@ import QuestionOne from "./components/QuestionOne";
 import QuestionTwo from "./components/QuestionTwo";
 import QuestionThree from "./components/QuestionThree";
 import Results from "./components/Results";
+import { getPrice, getQuery } from "./helpers/GooglePlacesAPIFunctions";
 
 function App() {
   const [answers, setAnswers] = useState({
@@ -20,15 +21,6 @@ function App() {
   const setAnswerTwo = (answerTwo) => setAnswers({ ...answers, answerTwo });
   const setAnswerThree = (answerThree) => setAnswers({ ...answers, answerThree });
 
-  const getPrice = (x) => {
-    const pricePoint = x.sort(function(a, b){return a-b});
-    const priceRange = [];
-    priceRange[0] = pricePoint[0];
-    priceRange[1] = priceRange[-1];
-    console.log(priceRange);
-    return priceRange;
-  };
-
   useEffect(() => {
     axios.get("http://localhost:3000/polls").then((res) => {
       console.log(res);
@@ -38,23 +30,21 @@ function App() {
       console.log(res);
     });
 
-    const range = getPrice(answers.answerThree);
-
-    //API cors proxy that has some limits (do not use):
-    //const url = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?";
-
-    //API cors proxy that works (for our project scale):
-    const url = "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/textsearch/json?";
-    const params = {
-      query: `${answers.answerOne} ${answers.answerTwo}`,
-      maxprice: range[0],
-      minprice: range[1],
-      key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY
-    };
-    
-    console.log("params", params);
-
     if (results === true) {
+      const range = getPrice(answers.answerThree);
+      const query = getQuery(answers.answerOne, answers.answerTwo);
+      //API cors proxy that has some limits (do not use):
+      //const url = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?";
+
+      //API cors proxy that works (for our project scale):
+      const url = "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/textsearch/json?";
+      const params = {
+        query: query,
+        minprice: range[0],
+        maxprice: range[1],
+        key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY
+      };
+
       axios.get(url, {params})
       .then(function (response) {
         console.log(response);
