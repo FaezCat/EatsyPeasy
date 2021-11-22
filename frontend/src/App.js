@@ -7,7 +7,9 @@ import QuestionOne from "./components/QuestionOne";
 import QuestionTwo from "./components/QuestionTwo";
 import QuestionThree from "./components/QuestionThree";
 import Results from "./components/Results";
+import LinkPage from "./components/LinkPage";
 import { getPrice, getQuery } from "./helpers/GooglePlacesAPIFunctions";
+import generateRandomString from "./helpers/UniqueLink";
 
 function App() {
   const [answers, setAnswers] = useState({
@@ -19,7 +21,8 @@ function App() {
 
   const setAnswerOne = (answerOne) => setAnswers({ ...answers, answerOne });
   const setAnswerTwo = (answerTwo) => setAnswers({ ...answers, answerTwo });
-  const setAnswerThree = (answerThree) => setAnswers({ ...answers, answerThree });
+  const setAnswerThree = (answerThree) =>
+    setAnswers({ ...answers, answerThree });
 
   useEffect(() => {
     axios.get("http://localhost:3000/polls").then((res) => {
@@ -37,25 +40,28 @@ function App() {
       //const url = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?";
 
       //API cors proxy that works (for our project scale):
-      const url = "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/textsearch/json?";
+      const url =
+        "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/textsearch/json?";
       const params = {
         query: query,
         minprice: range[0],
         maxprice: range[1],
-        key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY
+        key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY,
       };
 
-      axios.get(url, {params})
-      .then(function (response) {
-        console.log(response);
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      axios
+        .get(url, { params })
+        .then(function (response) {
+          console.log(response);
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
-
   }, [results]);
+
+  const uniqueLink = generateRandomString();
 
   return (
     <Router>
@@ -73,9 +79,18 @@ function App() {
           />
           <Route
             path="/questionthree"
-            element={<QuestionThree clickHandler={setAnswerThree} setResults={setResults} />}
+            element={
+              <QuestionThree
+                clickHandler={setAnswerThree}
+                setResults={setResults}
+              />
+            }
           />
           <Route path="/results" element={<Results />} />
+          <Route
+            path="/linkpage"
+            element={<LinkPage uniqueLink={uniqueLink} />}
+          />
         </Routes>
       </div>
     </Router>
