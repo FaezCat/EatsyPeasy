@@ -14,6 +14,8 @@ rating: appears to return a total average rating
 
 reviews: returns an array of objects - we may not use this honestly
 
-types: returns an array of “categories” - examples for McDongs includes cafe, restaurant, food, establishment
+types: returns an array of “categories” - examples for McDonalds includes cafe, restaurant, food, establishment
 
 user_ratings_total: displays the total # of ratings
+
+url: this gives us the google maps URL
