@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import Nav from "./components/Nav";
 import QuestionOne from "./components/QuestionOne";
@@ -20,6 +20,8 @@ function App() {
   const setAnswerOne = (answerOne) => setAnswers({ ...answers, answerOne });
   const setAnswerTwo = (answerTwo) => setAnswers({ ...answers, answerTwo });
   const setAnswerThree = (answerThree) => setAnswers({ ...answers, answerThree });
+
+  const [apiResponse, setapiResponse] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:3000/polls").then((res) => {
@@ -44,15 +46,31 @@ function App() {
         maxprice: range[1],
         key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY
       };
+      
+      axios
+        .get(url, {params})
+        .then(function (response) {
+          // setapiResponse{id: each Json}
+          // create function to get place_ids
+          // 
+          // return axios.get(20 api calls?? loop? use place_ids to get photo from photo api)
+          
+          // arrayOfIds = getPlaceIds(arrayOfResults);
+          // setapiResponse(arrayOfIds);
 
-      axios.get(url, {params})
-      .then(function (response) {
-        console.log(response);
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+          // after we import the function, we will run it with the response data which will return an array of restaurant objects
+          // .then (setApiResponse(createRestaurantObjs(results)))
+          // .then()
+
+        })
+        .then(function (response) {
+          console.log(response);
+          console.log(JSON.stringify(response.data));
+          setapiResponse(response.data.results);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
 
   }, [results]);
@@ -73,9 +91,9 @@ function App() {
           />
           <Route
             path="/questionthree"
-            element={<QuestionThree clickHandler={setAnswerThree} setResults={setResults} />}
+            element={<QuestionThree clickHandler={setAnswerThree} results={results} setResults={setResults} />}
           />
-          <Route path="/results" element={<Results />} />
+          <Route path="/results" element={<Results itemData={apiResponse}/>} />
         </Routes>
       </div>
     </Router>
