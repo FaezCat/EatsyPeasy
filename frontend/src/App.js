@@ -8,6 +8,7 @@ import QuestionTwo from "./components/QuestionTwo";
 import QuestionThree from "./components/QuestionThree";
 import Results from "./components/Results";
 import { getPrice, getQuery } from "./helpers/GooglePlacesAPIFunctions";
+import PollingResults from "./components/PollingResults";
 
 function App() {
   const [answers, setAnswers] = useState({
@@ -76,6 +77,8 @@ function App() {
             element={<QuestionThree clickHandler={setAnswerThree} setResults={setResults} />}
           />
           <Route path="/results" element={<Results />} />
+
+          <Route path="/pollResults" element={<PollingResults />} /> 
         </Routes>
       </div>
     </Router>
