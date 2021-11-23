@@ -1,8 +1,13 @@
+import { useState } from "react";
+import { styled } from '@mui/material/styles';
 import "../styles/SingleResult.scss";
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
-import ImageListItem from '@mui/material/ImageListItem';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -12,30 +17,56 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function SingleResult(props) {
+
+  const [selectedRestaurant, setSelectedRestaurant] = useState(props.defaultValue);
+
+  const handleChange = (event) => {
+    setSelectedRestaurant(event.target.value);
+  };
+
   return (
     <div className="column">
       <Stack
         direction="column"
         spacing={{ xs: 1, sm: 2, md: 2 }}>
         <Item>
-          <h3> Restaurant Name </h3>
-          <ImageListItem key={itemData.img}>
+
+      <Box sx={{ minWidth: 120 }}>
+        <FormControl fullWidth>
+          <InputLabel id="restaurant-simple-select-label">Choice {props.defaultValue + 1}</InputLabel>
+          <Select
+            labelId="restaurant-select-label"
+            id="restaurant-simple-select"
+            value={selectedRestaurant}
+            label="Restaurant"
+            onChange={handleChange}
+            style={{fontFamily: 'Quicksand, sans-serif'}}
+          >
+          {props.itemData.map((item, index) => {
+            return <MenuItem key={index} value={index}>{item.name} </MenuItem>
+          })}
+          </Select>
+        </FormControl>
+      </Box>
+
+      {/* TO DO: get image, other info from API */}
+          {/* <ImageListItem key={itemData[0].img}>
             <img
-              src={itemData.img}
-              alt={itemData.title}
+              src={itemData[0].img}
+              alt={itemData[0].title}
               />
-          </ImageListItem>
+          </ImageListItem> */}
         </Item>
         <Item>
-          <h4>Menu</h4>
-          <h4>Popular Dish </h4>
-          <h4>Popular Vegan/Vegetarian/Gluten-Free Dish</h4>
+          <h3>Menu</h3>
+          <h3>Popular Dish </h3>
+          <h3>Popular Vegan/Vegetarian/Gluten-Free Dish</h3>
         </Item>
         <Item>
-          <h4>Overall Review</h4>
-          <h4>Business Hours</h4>
-          <h4>Contact Information</h4>
-          <h4>Direction</h4>
+          <h3>Rating: </h3>
+          <h3>Business Hours</h3>
+          <h3>Contact Information</h3>
+          <h3>Direction</h3>
         </Item>
       </Stack>
     </div>
@@ -43,8 +74,4 @@ export default function SingleResult(props) {
   )
 }
 
-const itemData =
-  {
-    img: 'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/portion_sizes_slideshow/getty_rm_photo_of_fish_meal_on_small_plate.jpg',
-    title: 'Restaurant-img'
-  }
+

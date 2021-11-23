@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import Nav from "./components/Nav";
 import QuestionOne from "./components/QuestionOne";
@@ -10,6 +10,8 @@ import Results from "./components/Results";
 import LinkPage from "./components/LinkPage";
 import { getPrice, getQuery } from "./helpers/GooglePlacesAPIFunctions";
 import generateRandomString from "./helpers/UniqueLink";
+import { createRestaurantObjs, addDetailsToRestaurantObjs } from "./helpers/CreateRestaurantObjs";
+import PollingResults from "./components/PollingResults";
 
 function App() {
   const [answers, setAnswers] = useState({
@@ -24,14 +26,16 @@ function App() {
   const setAnswerThree = (answerThree) =>
     setAnswers({ ...answers, answerThree });
 
-  useEffect(() => {
-    axios.get("http://localhost:3000/polls").then((res) => {
-      console.log(res);
-    });
+  const [restaurantObjs, setRestaurantObjs] = useState([]);
 
-    axios.get("http://localhost:3000/users").then((res) => {
-      console.log(res);
-    });
+  useEffect(() => {
+    // axios.get("http://localhost:3000/polls").then((res) => {
+    //   console.log(res);
+    // });
+
+    // axios.get("http://localhost:3000/users").then((res) => {
+    //   console.log(res);
+    // });
 
     if (results === true) {
       const range = getPrice(answers.answerThree);
@@ -48,12 +52,20 @@ function App() {
         maxprice: range[1],
         key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY,
       };
-
+      
       axios
-        .get(url, { params })
+        .get(url, {params})
         .then(function (response) {
-          console.log(response);
-          console.log(JSON.stringify(response.data));
+          console.log("this is res", response)
+          const createdRestObjs = createRestaurantObjs(response);
+          setRestaurantObjs(createdRestObjs);
+        })
+        .then(() => {
+          console.log("restaurantObjs state", restaurantObjs);
+          addDetailsToRestaurantObjs(restaurantObjs, setRestaurantObjs);
+        })
+        .then(function () {
+          console.log("restaurant updated objs:", restaurantObjs);
         })
         .catch(function (error) {
           console.log(error);
@@ -78,19 +90,12 @@ function App() {
             element={<QuestionTwo clickHandler={setAnswerTwo} />}
           />
           <Route
-            path="/questionthree"
-            element={
-              <QuestionThree
-                clickHandler={setAnswerThree}
-                setResults={setResults}
-              />
-            }
+            path="/questionthree" element={<QuestionThree clickHandler={setAnswerThree} results={results} setResults={setResults} />}
           />
           <Route path="/results" element={<Results />} />
-          <Route
-            path="/linkpage"
-            element={<LinkPage uniqueLink={uniqueLink} />}
+          <Route path="/linkpage" element={<LinkPage uniqueLink={uniqueLink} />}
           />
+          <Route path="/pollResults" element={<PollingResults />} /> 
         </Routes>
       </div>
     </Router>
