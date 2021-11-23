@@ -7,7 +7,9 @@ import QuestionOne from "./components/QuestionOne";
 import QuestionTwo from "./components/QuestionTwo";
 import QuestionThree from "./components/QuestionThree";
 import Results from "./components/Results";
+import LinkPage from "./components/LinkPage";
 import { getPrice, getQuery } from "./helpers/GooglePlacesAPIFunctions";
+import generateRandomString from "./helpers/UniqueLink";
 import { createRestaurantObjs, addDetailsToRestaurantObjs } from "./helpers/CreateRestaurantObjs";
 import PollingResults from "./components/PollingResults";
 
@@ -21,7 +23,8 @@ function App() {
 
   const setAnswerOne = (answerOne) => setAnswers({ ...answers, answerOne });
   const setAnswerTwo = (answerTwo) => setAnswers({ ...answers, answerTwo });
-  const setAnswerThree = (answerThree) => setAnswers({ ...answers, answerThree });
+  const setAnswerThree = (answerThree) =>
+    setAnswers({ ...answers, answerThree });
 
   const [restaurantObjs, setRestaurantObjs] = useState([]);
 
@@ -41,12 +44,13 @@ function App() {
       //const url = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?";
 
       //API cors proxy that works (for our project scale):
-      const url = "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/textsearch/json?";
+      const url =
+        "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/textsearch/json?";
       const params = {
         query: query,
         minprice: range[0],
         maxprice: range[1],
-        key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY
+        key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY,
       };
       
       axios
@@ -67,8 +71,9 @@ function App() {
           console.log(error);
         });
     }
-
   }, [results]);
+
+  const uniqueLink = generateRandomString();
 
   return (
     <Router>
@@ -85,10 +90,11 @@ function App() {
             element={<QuestionTwo clickHandler={setAnswerTwo} />}
           />
           <Route
-            path="/questionthree"
-            element={<QuestionThree clickHandler={setAnswerThree} results={results} setResults={setResults} />}
+            path="/questionthree" element={<QuestionThree clickHandler={setAnswerThree} results={results} setResults={setResults} />}
           />
           <Route path="/results" element={<Results />} />
+          <Route path="/linkpage" element={<LinkPage uniqueLink={uniqueLink} />}
+          />
           <Route path="/pollResults" element={<PollingResults />} /> 
         </Routes>
       </div>
