@@ -56,11 +56,9 @@ function App() {
         })
         .then((createdRestObjs) => {
           const updatedObjs = addDetailsToRestaurantObjs(createdRestObjs);
-          console.log("inside the .then updatedObjs:", updatedObjs);
           return updatedObjs;
         })
         .then(function (updatedObjs) {
-          console.log("restaurant updated objs:", updatedObjs);
           setRestaurantObjs(updatedObjs);
         })
         .catch(function (error) {
