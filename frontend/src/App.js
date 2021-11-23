@@ -10,7 +10,10 @@ import Results from "./components/Results";
 import LinkPage from "./components/LinkPage";
 import { getPrice, getQuery } from "./helpers/GooglePlacesAPIFunctions";
 import generateRandomString from "./helpers/UniqueLink";
-import { createRestaurantObjs, addDetailsToRestaurantObjs } from "./helpers/CreateRestaurantObjs";
+import {
+  createRestaurantObjs,
+  addDetailsToRestaurantObjs,
+} from "./helpers/CreateRestaurantObjs";
 import PollingResults from "./components/PollingResults";
 
 function App() {
@@ -29,14 +32,6 @@ function App() {
   const [restaurantObjs, setRestaurantObjs] = useState([]);
 
   useEffect(() => {
-    // axios.get("http://localhost:3000/polls").then((res) => {
-    //   console.log(res);
-    // });
-
-    // axios.get("http://localhost:3000/users").then((res) => {
-    //   console.log(res);
-    // });
-
     if (results === true) {
       const range = getPrice(answers.answerThree);
       const query = getQuery(answers.answerOne, answers.answerTwo);
@@ -52,20 +47,21 @@ function App() {
         maxprice: range[1],
         key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY,
       };
-      
+
       axios
-        .get(url, {params})
+        .get(url, { params })
         .then(function (response) {
-          console.log("this is res", response)
           const createdRestObjs = createRestaurantObjs(response);
-          setRestaurantObjs(createdRestObjs);
+          return createdRestObjs;
         })
-        .then(() => {
-          console.log("restaurantObjs state", restaurantObjs);
-          addDetailsToRestaurantObjs(restaurantObjs, setRestaurantObjs);
+        .then((createdRestObjs) => {
+          const updatedObjs = addDetailsToRestaurantObjs(createdRestObjs);
+          console.log("inside the .then updatedObjs:", updatedObjs);
+          return updatedObjs;
         })
-        .then(function () {
-          console.log("restaurant updated objs:", restaurantObjs);
+        .then(function (updatedObjs) {
+          console.log("restaurant updated objs:", updatedObjs);
+          setRestaurantObjs(updatedObjs);
         })
         .catch(function (error) {
           console.log(error);
@@ -90,12 +86,24 @@ function App() {
             element={<QuestionTwo clickHandler={setAnswerTwo} />}
           />
           <Route
-            path="/questionthree" element={<QuestionThree clickHandler={setAnswerThree} results={results} setResults={setResults} />}
+            path="/questionthree"
+            element={
+              <QuestionThree
+                clickHandler={setAnswerThree}
+                results={results}
+                setResults={setResults}
+              />
+            }
           />
-          <Route path="/results" element={<Results />} />
-          <Route path="/linkpage" element={<LinkPage uniqueLink={uniqueLink} />}
+          <Route
+            path="/results"
+            element={<Results itemData={restaurantObjs} />}
           />
-          <Route path="/pollResults" element={<PollingResults />} /> 
+          <Route
+            path="/linkpage"
+            element={<LinkPage uniqueLink={uniqueLink} />}
+          />
+          <Route path="/pollResults" element={<PollingResults />} />
         </Routes>
       </div>
     </Router>
