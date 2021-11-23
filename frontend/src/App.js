@@ -8,6 +8,7 @@ import QuestionTwo from "./components/QuestionTwo";
 import QuestionThree from "./components/QuestionThree";
 import Results from "./components/Results";
 import { getPrice, getQuery } from "./helpers/GooglePlacesAPIFunctions";
+import { createRestaurantObjs, addDetailsToRestaurantObjs } from "./helpers/CreateRestaurantObjs";
 
 function App() {
   const [answers, setAnswers] = useState({
@@ -21,16 +22,16 @@ function App() {
   const setAnswerTwo = (answerTwo) => setAnswers({ ...answers, answerTwo });
   const setAnswerThree = (answerThree) => setAnswers({ ...answers, answerThree });
 
-  const [apiResponse, setapiResponse] = useState([]);
+  const [restaurantObjs, setRestaurantObjs] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/polls").then((res) => {
-      console.log(res);
-    });
+    // axios.get("http://localhost:3000/polls").then((res) => {
+    //   console.log(res);
+    // });
 
-    axios.get("http://localhost:3000/users").then((res) => {
-      console.log(res);
-    });
+    // axios.get("http://localhost:3000/users").then((res) => {
+    //   console.log(res);
+    // });
 
     if (results === true) {
       const range = getPrice(answers.answerThree);
@@ -50,23 +51,16 @@ function App() {
       axios
         .get(url, {params})
         .then(function (response) {
-          // setapiResponse{id: each Json}
-          // create function to get place_ids
-          // 
-          // return axios.get(20 api calls?? loop? use place_ids to get photo from photo api)
-          
-          // arrayOfIds = getPlaceIds(arrayOfResults);
-          // setapiResponse(arrayOfIds);
-
-          // after we import the function, we will run it with the response data which will return an array of restaurant objects
-          // .then (setApiResponse(createRestaurantObjs(results)))
-          // .then()
-
+          console.log("this is res", response)
+          const createdRestObjs = createRestaurantObjs(response);
+          setRestaurantObjs(createdRestObjs);
         })
-        .then(function (response) {
-          console.log(response);
-          console.log(JSON.stringify(response.data));
-          setapiResponse(response.data.results);
+        .then(() => {
+          console.log("restaurantObjs state", restaurantObjs);
+          addDetailsToRestaurantObjs(restaurantObjs, setRestaurantObjs);
+        })
+        .then(function () {
+          console.log("restaurant updated objs:", restaurantObjs);
         })
         .catch(function (error) {
           console.log(error);
@@ -93,7 +87,7 @@ function App() {
             path="/questionthree"
             element={<QuestionThree clickHandler={setAnswerThree} results={results} setResults={setResults} />}
           />
-          <Route path="/results" element={<Results itemData={apiResponse}/>} />
+          <Route path="/results" element={<Results itemData={restaurantObjs}/>} />
         </Routes>
       </div>
     </Router>

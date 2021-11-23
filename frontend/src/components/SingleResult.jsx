@@ -63,7 +63,7 @@ export default function SingleResult(props) {
           <h3>Popular Vegan/Vegetarian/Gluten-Free Dish</h3>
         </Item>
         <Item>
-          <h3>Rating: {props.itemData[selectedRestaurant].rating}</h3>
+          <h3>Rating: </h3>
           <h3>Business Hours</h3>
           <h3>Contact Information</h3>
           <h3>Direction</h3>

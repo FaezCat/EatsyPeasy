@@ -1,5 +1,7 @@
-function createRestaurantObjs(results) {
-            
+import axios from "axios";
+
+export function createRestaurantObjs(results) {
+  console.log("results.data:", results.data)
   const arrayOfResults = results.data.results;
 
   const arrayOfRestaurantObjs = [];
@@ -11,7 +13,8 @@ function createRestaurantObjs(results) {
         restaurant_name: restaurant.name,
         ave_rating: restaurant.rating,
         total_ratings: restaurant.user_ratings_total,
-        opening_hours: restaurant.opening_hours
+        restaurant_photo_ref: restaurant.photos[0].photo_reference,
+        restaurant_photo_width: restaurant.photos[0].width, 
         // we need to update these together to what data we retrieve at first (that is unavailable from the places API)
       }
     );
@@ -19,60 +22,67 @@ function createRestaurantObjs(results) {
   return arrayOfRestaurantObjs;
 }
 
-function updateRestaurantObj(newDataResponse, currentApiResponse, place_id) {
-  const newRestaurantObjs = [...currentApiResponse]
-  
-  for (const restaurant of newRestaurantObjs) {
-    if (restaurant.place_id === place_id) {
-      restaurant.whatever = newDataResponse.whatever;
-      // THIS NEEDS UPDATING: we'll add in our additional required data fields here to be added to the object
-    }
-  }
-  return newRestaurantObjs;
+function updateRestaurantObj(placeDetails, currentRestaurantObj, restaurantId) {
+  const newRestaurantObj = {...currentRestaurantObj};
 
+  newRestaurantObj.business_hours = placeDetails.opening_hours.weekday_text;
+  newRestaurantObj.phone_number = placeDetails.formatted_phone_number;
+  newRestaurantObj.maps_directions = placeDetails.url;
+
+  return newRestaurantObj;
 }
 
-function addDetailsToRestaurantObjs(arrayOfRestaurantObjs, apiResponse, setApiResponse) {
+export async function addDetailsToRestaurantObjs(restaurantObjs, setRestaurantObjs) {
   
-  const currentApiResponse = [...apiResponse];
+  const currentRestaurantObjs = [...restaurantObjs];
   
-  const url = "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/textsearch/json?";
-  // this url is incorrect - we will have to update it to the details API one (not certain how - pls help @Claudia haha)
-  const apiKey = process.env.REACT_APP_GOOGLE_PLACES_API_KEY
+  const url = "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/details/json?";
+  // this url is correct
+  const apiKey = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
   
-  // option 1
-  for (let i = 0; i < arrayOfRestaurantObjs.length; i++) {
-    const restaurantId = arrayOfRestaurantObjs[i].place_id;
-    const params = {
-      place_id: restaurantId,
-      key: apiKey
-    };
-    axios.get(url, {params})
-      .then((response) => {
-        updateRestaurantObj(response, currentApiResponse, restaurantId)
-      })
-      .then((newRestaurantObjs) => {
-        setApiResponse(newRestaurantObjs)
-      })
-  }
+  // // option 1
+  // for (let i = 0; i < currentRestaurantObjs.length; i++) {
+  //   const restaurantId = currentRestaurantObjs[i].place_id;
+  //   const params = {
+  //     place_id: restaurantId,
+  //     key: apiKey
+  //   };
+  //   axios.get(url, {params})
+  //     .then((response) => {
+  //       return newRestaurantObj = updateRestaurantObj(response, currentRestaurantObjs[i], restaurantId);
+  //     })
+  //     .then((newRestaurantObj) => {
+  //       setRestaurantObjs({...restaurantObjs, restaurantId: newRestaurantObj});
+  //     })
+  // }
 
 
   // option 2
-  await Promise.all(() => {
-    
-    for (const restaurant of arrayOfRestaurantObjs) {
+  const returnUpdatedObjs = [];
+  const promises = [];
+  console.log(restaurantObjs);
+  console.log(currentRestaurantObjs);
+
+    for (const restaurant of currentRestaurantObjs) {
+      const restaurantId = restaurant.place_id;
       const params = {
-        place_id: restaurant.place_id,
+        place_id: restaurantId,
         key: apiKey
       };
-      axios.get(url, {params})
-      .then((response) => {
-        updateRestaurantObj(response, currentApiResponse, restaurant.place_id)
-      })
-      .then((newRestaurantObjs) => {
-        setApiResponse(newRestaurantObjs)
-      })
+      console.log("url and params:", url, params);
+      promises.push(()=> axios.get(url, {params}));
+      //promises.push(axios.get(url, {params}).then(()=>console.log('promise pushed!')));
     }
-  }).then(console.log("All states have updated?!"));
-  
+    console.log(promises);
+
+      await Promise.all(promises)
+      .then((response) => {
+        console.log("response after all promises executed:", response);
+        // const newRestaurantObj = updateRestaurantObj(response, restaurant, restaurantId);
+        // return newRestaurantObj;
+      })
+      // .then((newRestaurantObj) => {
+      //   returnUpdatedObjs.push(newRestaurantObj);
+      // })
+      // .then(()=> setRestaurantObjs(returnUpdatedObjs));
 }
