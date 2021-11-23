@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import Nav from "./components/Nav";
 import QuestionOne from "./components/QuestionOne";
@@ -8,6 +8,7 @@ import QuestionTwo from "./components/QuestionTwo";
 import QuestionThree from "./components/QuestionThree";
 import Results from "./components/Results";
 import { getPrice, getQuery } from "./helpers/GooglePlacesAPIFunctions";
+import { createRestaurantObjs, addDetailsToRestaurantObjs } from "./helpers/CreateRestaurantObjs";
 import PollingResults from "./components/PollingResults";
 
 function App() {
@@ -22,14 +23,16 @@ function App() {
   const setAnswerTwo = (answerTwo) => setAnswers({ ...answers, answerTwo });
   const setAnswerThree = (answerThree) => setAnswers({ ...answers, answerThree });
 
-  useEffect(() => {
-    axios.get("http://localhost:3000/polls").then((res) => {
-      console.log(res);
-    });
+  const [restaurantObjs, setRestaurantObjs] = useState([]);
 
-    axios.get("http://localhost:3000/users").then((res) => {
-      console.log(res);
-    });
+  useEffect(() => {
+    // axios.get("http://localhost:3000/polls").then((res) => {
+    //   console.log(res);
+    // });
+
+    // axios.get("http://localhost:3000/users").then((res) => {
+    //   console.log(res);
+    // });
 
     if (results === true) {
       const range = getPrice(answers.answerThree);
@@ -45,15 +48,24 @@ function App() {
         maxprice: range[1],
         key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY
       };
-
-      axios.get(url, {params})
-      .then(function (response) {
-        console.log(response);
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      
+      axios
+        .get(url, {params})
+        .then(function (response) {
+          console.log("this is res", response)
+          const createdRestObjs = createRestaurantObjs(response);
+          setRestaurantObjs(createdRestObjs);
+        })
+        .then(() => {
+          console.log("restaurantObjs state", restaurantObjs);
+          addDetailsToRestaurantObjs(restaurantObjs, setRestaurantObjs);
+        })
+        .then(function () {
+          console.log("restaurant updated objs:", restaurantObjs);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
 
   }, [results]);
@@ -74,10 +86,9 @@ function App() {
           />
           <Route
             path="/questionthree"
-            element={<QuestionThree clickHandler={setAnswerThree} setResults={setResults} />}
+            element={<QuestionThree clickHandler={setAnswerThree} results={results} setResults={setResults} />}
           />
           <Route path="/results" element={<Results />} />
-
           <Route path="/pollResults" element={<PollingResults />} /> 
         </Routes>
       </div>
