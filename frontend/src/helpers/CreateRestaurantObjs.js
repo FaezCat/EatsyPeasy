@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export function createRestaurantObjs(results) {
-  console.log("results.data:", results.data);
+  // console.log("results.data:", results.data);
   const arrayOfResults = results.data.results;
 
   const arrayOfRestaurantObjs = [];
@@ -25,33 +25,14 @@ function updateRestaurantObj(restaurant, placeDetails) {
   restaurant.phone_number = placeDetails.formatted_phone_number;
   restaurant.maps_directions = placeDetails.url;
 
-  console.log("updated restaurant obj:", restaurant);
+  // console.log("updated restaurant obj:", restaurant);
   return restaurant;
 }
 
 export async function addDetailsToRestaurantObjs(createdRestObjs) {
   const url =
     "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/details/json?";
-  // this url is correct
   const apiKey = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
-
-  // // option 1
-  // for (let i = 0; i < currentRestaurantObjs.length; i++) {
-  //   const restaurantId = currentRestaurantObjs[i].place_id;
-  //   const params = {
-  //     place_id: restaurantId,
-  //     key: apiKey
-  //   };
-  //   axios.get(url, {params})
-  //     .then((response) => {
-  //       return newRestaurantObj = updateRestaurantObj(response, currentRestaurantObjs[i], restaurantId);
-  //     })
-  //     .then((newRestaurantObj) => {
-  //       setRestaurantObjs({...restaurantObjs, restaurantId: newRestaurantObj});
-  //     })
-  // }
-
-  // option 2
   const updatedObjs = [];
   const promises = [];
 
@@ -64,16 +45,16 @@ export async function addDetailsToRestaurantObjs(createdRestObjs) {
     promises.push(
       axios.get(url, { params }).then((response) => {
         const placeDetails = response.data.result;
-        console.log("placeDetails:", placeDetails);
+        // console.log("placeDetails:", placeDetails);
         updatedObjs.push(updateRestaurantObj(restaurant, placeDetails));
       })
     );
   }
-  console.log("promises:", promises);
+  // console.log("promises:", promises);
 
   return await Promise.all(promises)
     .then(() => {
-      console.log("updatedObjsArray:", updatedObjs);
+      // console.log("updatedObjsArray:", updatedObjs);
       return updatedObjs;
     })
     .catch((err) => {

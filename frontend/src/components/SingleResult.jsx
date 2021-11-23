@@ -8,6 +8,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import getRestaurantPhoto from "../helpers/GetRestaurantPhoto";
+import { ImageListItem } from "@mui/material";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -18,11 +20,20 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function SingleResult(props) {
 
-  const [selectedRestaurant, setSelectedRestaurant] = useState(props.defaultValue);
+  const { itemData, defaultValue, selectedRestaurants, setSelectedRestaurants } = props;
 
   const handleChange = (event) => {
-    setSelectedRestaurant(event.target.value);
+    const newSelectedRestaurants = [...selectedRestaurants];
+
+    newSelectedRestaurants[defaultValue] = itemData[event.target.value];
+    console.log("event target value:", event.target.value);
+
+    setSelectedRestaurants(newSelectedRestaurants);
   };
+
+  const selectedRestaurant = selectedRestaurants[defaultValue];
+  // const restaurantImage = getRestaurantPhoto(selectedRestaurant);
+  // console.log("restaurant image:", restaurantImage);
 
   return (
     <div className="column">
@@ -33,7 +44,7 @@ export default function SingleResult(props) {
 
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
-          <InputLabel id="restaurant-simple-select-label">Choice {props.defaultValue + 1}</InputLabel>
+          <InputLabel id="restaurant-simple-select-label">Choice {defaultValue + 1}</InputLabel>
           <Select
             labelId="restaurant-select-label"
             id="restaurant-simple-select"
@@ -42,18 +53,19 @@ export default function SingleResult(props) {
             onChange={handleChange}
             style={{fontFamily: 'Quicksand, sans-serif'}}
           >
-          {props.itemData.map((item, index) => {
-            return <MenuItem key={index} value={index}>{item.name} </MenuItem>
+          {itemData.map((item, index) => {
+            return <MenuItem key={index} value={index}>{item.restaurant_name}</MenuItem>
           })}
           </Select>
         </FormControl>
       </Box>
 
       {/* TO DO: get image, other info from API */}
-          {/* <ImageListItem key={itemData[0].img}>
+          {/* <ImageListItem key={props.defaultValue.restaurant_name}>
             <img
-              src={itemData[0].img}
-              alt={itemData[0].title}
+              // src={`https://thingproxy.freeboard.io/fetch/${restaurantImage}`}
+              src={`data:image/jpeg;base64,/${restaurantImage}`}
+              alt={`temp`}
               />
           </ImageListItem> */}
         </Item>
