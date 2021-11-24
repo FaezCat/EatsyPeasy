@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   #get 'google_places_api_controller/get_places'
 
-  resources :polls, only: [:index, create]
+  resources :polls, only: [:index, :create]
   resources :users, only: [:index]
   
   post 'polls/:id' => 'catalog#view'

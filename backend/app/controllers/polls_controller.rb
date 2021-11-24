@@ -6,7 +6,7 @@ class PollsController < ApplicationController
   end
 
   def create
-    
+    puts "test"
   end
 
 
