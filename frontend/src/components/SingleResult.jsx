@@ -42,8 +42,8 @@ export default function SingleResult(props) {
   console.log('type of defaultValue:', typeof(defaultValue))
   console.log(selectedRestaurant.restaurant_name)
 
-  // const restaurantImage = getRestaurantPhoto(selectedRestaurant);
-  // console.log("restaurant image:", restaurantImage);
+  const restaurantImage = getRestaurantPhoto(selectedRestaurant);
+  console.log("restaurant image:", restaurantImage);
 
   return (
     <div className="column">
@@ -71,13 +71,13 @@ export default function SingleResult(props) {
       </Box>
 
       {/* TO DO: get image, other info from API */}
-          {/* <ImageListItem key={props.defaultValue.restaurant_name}>
+          <ImageListItem key={props.defaultValue.restaurant_name}>
             <img
               // src={`https://thingproxy.freeboard.io/fetch/${restaurantImage}`}
               src={`data:image/jpeg;base64,/${restaurantImage}`}
               alt={`temp`}
               />
-          </ImageListItem> */}
+          </ImageListItem>
         </Item>
         <Item>
           <h3>Menu</h3>

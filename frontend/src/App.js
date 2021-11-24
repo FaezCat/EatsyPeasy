@@ -13,6 +13,7 @@ import {
   createRestaurantObjs,
   addDetailsToRestaurantObjs,
 } from "./helpers/CreateRestaurantObjs";
+import PollingPage from "./components/PollingPage";
 import PollingResults from "./components/PollingResults";
 
 function App() {
@@ -101,7 +102,8 @@ function App() {
             element={<Results itemData={restaurantObjs} />}
           />
           <Route path="/linkpage" element={<LinkPage />} />
-          <Route path="/pollResults" element={<PollingResults />} />
+          <Route path="/poll/:alpha_numeric_id" element={<PollingPage />} />
+          <Route path="/poll/:alpha_numeric_id/results" element={<PollingResults />} />
         </Routes>
       </div>
     </Router>
