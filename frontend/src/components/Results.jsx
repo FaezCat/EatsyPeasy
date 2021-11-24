@@ -21,16 +21,18 @@ export default function Results(props) {
   }, [poll])
 
   const numericId = generateRandomString();
-
+  
   function createPoll (selectedRestaurants) {
     const poll = {};
     for (let i = 0; i < selectedRestaurants.length; i++) {
+      const restPlaceID = `restaurant_${i+1}_place_id`;
       const restName = `restaurant_${i+1}_name`;
       const restVotes = `restaurant_${i+1}_votes`;
       const restHours = `restaurant_${i+1}_business_hours`;
       const restNumber = `restaurant_${i+1}_phone_number`;
       const restWebsite = `restaurant_${i+1}_website`;
       const restMaps = `restaurant_${i+1}_maps_directions`;
+      poll[restPlaceID] = selectedRestaurants[i].place_id;
       poll[restName] = selectedRestaurants[i].restaurant_name;
       poll[restVotes] = 0;
       poll[restHours] = selectedRestaurants[i].business_hours;
