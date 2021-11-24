@@ -6,14 +6,18 @@ Goals for today (Weds):
 
 Goals for Thursday:
 - Voting Page (built off of Results pg)
-- Polling routing
+  - Voting routing, back-end to front to display the correct poll
+  - Voting routing, front to back-end (when users vote)
+  - Users table updating
 
 Goals for Friday:
 - Poll results page with accurate data
+  - Polling routing back to front for poll results updates
 - Menu API functionality or other API to bring in functionality
 
 Goals for weekend:
 - CSS overall
+  - linkpage: add library for "web share"
 - Add a footer (about us, contact info)
 - Heroku
 
