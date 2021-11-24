@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
-  get 'google_places_api_controller/get_places'
+  #get 'google_places_api_controller/get_places'
 
-  resources :polls, only: [:index]
+  resources :polls, only: [:index, create]
   resources :users, only: [:index]
   
+  post 'polls/:id' => 'catalog#view'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
