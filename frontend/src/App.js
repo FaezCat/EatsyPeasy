@@ -9,7 +9,6 @@ import QuestionThree from "./components/QuestionThree";
 import Results from "./components/Results";
 import LinkPage from "./components/LinkPage";
 import { getPrice, getQuery } from "./helpers/GooglePlacesAPIFunctions";
-import generateRandomString from "./helpers/UniqueLink";
 import {
   createRestaurantObjs,
   addDetailsToRestaurantObjs,
@@ -67,8 +66,6 @@ function App() {
     }
   }, [results]);
 
-  const uniqueLink = generateRandomString();
-
   return (
     <Router>
       <div className="background">
@@ -99,7 +96,7 @@ function App() {
           />
           <Route
             path="/linkpage"
-            element={<LinkPage uniqueLink={uniqueLink} />}
+            element={<LinkPage />}
           />
           <Route path="/pollResults" element={<PollingResults />} />
         </Routes>

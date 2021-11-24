@@ -1,7 +1,8 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import SingleResult from "./SingleResult";
 import Button from '@mui/material/Button';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import generateRandomString from "../helpers/UniqueLink";
 
 export default function Results(props) {
 
@@ -11,6 +12,35 @@ export default function Results(props) {
   
   console.log("itemData", props.itemData)
   console.log("selectedRestaurants", selectedRestaurants)
+
+  const [poll, setPoll] = useState({}); //poll should be one object matching the ERD later
+
+  useEffect(() => {
+    //post request here
+  }, [poll])
+
+  const numericId = generateRandomString();
+
+  function createPoll (selectedRestaurants) {
+    const poll = {};
+    for (let i = 0; i < selectedRestaurants.length; i++) {
+      const restName = `restaurant_${i+1}_name`;
+      const restVotes = `restaurant_${i+1}_votes`;
+      const restHours = `restaurant_${i+1}_business_hours`;
+      const restNumber = `restaurant_${i+1}_phone_number`;
+      const restWebsite = `restaurant_${i+1}_website`;
+      const restMaps = `restaurant_${i+1}_maps_directions`;
+      poll[restName] = selectedRestaurants[i].restaurant_name;
+      poll[restVotes] = 0;
+      poll[restHours] = selectedRestaurants[i].business_hours;
+      poll[restNumber] = selectedRestaurants[i].phone_number;
+      poll[restWebsite] = selectedRestaurants[i].website; 
+      poll[restMaps] = selectedRestaurants[i].maps_directions;
+    }
+    poll["alpha_numeric_id"] = numericId;
+    console.log("poll obj:", poll);
+    return poll;
+  }
 
   return (
     <Fragment>
@@ -25,12 +55,14 @@ export default function Results(props) {
       </div>
       <h3>Need some input? Generate a poll to share with your friends!</h3>
       
- {/* TO DO: Button */}
-      {/* <Button 
+      <Button 
           style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
-          onClick={() => {props.clickHandler(""); navigate(''); console.log("");}}>Generate Poll
-      </Button> */}
-
+          onClick={() => {
+            const pollObj = createPoll(selectedRestaurants);
+            setPoll(pollObj); //trigger to do POST request
+            setTimeout(() => {navigate('/linkpage', { state: {poll: pollObj} })}, 2000);
+          }}>Generate Poll
+      </Button>
     </Fragment>
  )
 }

@@ -5,4 +5,9 @@ class PollsController < ApplicationController
     render json: @polls
   end
 
+  def create
+    
+  end
+
+
 end
