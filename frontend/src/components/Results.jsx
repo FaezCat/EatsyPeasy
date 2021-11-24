@@ -7,7 +7,10 @@ export default function Results(props) {
 
   const navigate = useNavigate();
 
-  const [selectedRestaurants, setSelectedRestaurants] = useState([props.itemData[0], props.itemData[1], props.itemData[2]]);
+  const [selectedRestaurants, setSelectedRestaurants] = useState(
+    [props.itemData[0],
+    props.itemData[1],
+    props.itemData[2]]);
 
   return (
     <Fragment>
