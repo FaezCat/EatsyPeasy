@@ -8,7 +8,10 @@ export default function Results(props) {
 
   const navigate = useNavigate();
 
-  const [selectedRestaurants, setSelectedRestaurants] = useState([props.itemData[0], props.itemData[1], props.itemData[2]]);
+  const [selectedRestaurants, setSelectedRestaurants] = useState(
+    [props.itemData[0],
+    props.itemData[1],
+    props.itemData[2]]);
 
   const [poll, setPoll] = useState({}); //poll should be one object matching the ERD later
 
