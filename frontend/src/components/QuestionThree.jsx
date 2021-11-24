@@ -52,7 +52,7 @@ export default function QuestionThree(props) {
         props.setResults(true);
         setTimeout(()=> {
           navigate("/results");
-        }, 2000)
+        }, 2500)
       }}>Next</Button>
     </div>}
     {props.results === true && <CircularProgress />}

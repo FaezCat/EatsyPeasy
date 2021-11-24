@@ -10,6 +10,7 @@ export default function Results(props) {
 
   const [selectedRestaurants, setSelectedRestaurants] = useState([props.itemData[0], props.itemData[1], props.itemData[2]]);
   
+  
   console.log("itemData", props.itemData)
   console.log("selectedRestaurants", selectedRestaurants)
 
@@ -49,9 +50,9 @@ export default function Results(props) {
       </div>
       <h1>Your Customized Selections</h1>
       <div>
-        <SingleResult itemData={props.itemData} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants}/>
-        <SingleResult itemData={props.itemData} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants}/>
-        <SingleResult itemData={props.itemData} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants}/>
+        {props.itemData[0] && <SingleResult itemData={props.itemData} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants}/>}
+        {props.itemData[1] && <SingleResult itemData={props.itemData} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants}/>}
+        {props.itemData[2] && <SingleResult itemData={props.itemData} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants}/>}
       </div>
       <h3>Need some input? Generate a poll to share with your friends!</h3>
       

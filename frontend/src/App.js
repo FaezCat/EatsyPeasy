@@ -51,13 +51,19 @@ function App() {
         .get(url, { params })
         .then(function (response) {
           const createdRestObjs = createRestaurantObjs(response);
+          console.log("initial objs from first call:", createdRestObjs);
           return createdRestObjs;
         })
         .then((createdRestObjs) => {
           const updatedObjs = addDetailsToRestaurantObjs(createdRestObjs);
+          console.log("updated objs 2nd call:", updatedObjs);
           return updatedObjs;
         })
         .then(function (updatedObjs) {
+          console.log(
+            "the .then updated objs before state update:",
+            updatedObjs
+          );
           setRestaurantObjs(updatedObjs);
         })
         .catch(function (error) {
@@ -94,10 +100,7 @@ function App() {
             path="/results"
             element={<Results itemData={restaurantObjs} />}
           />
-          <Route
-            path="/linkpage"
-            element={<LinkPage />}
-          />
+          <Route path="/linkpage" element={<LinkPage />} />
           <Route path="/pollResults" element={<PollingResults />} />
         </Routes>
       </div>
