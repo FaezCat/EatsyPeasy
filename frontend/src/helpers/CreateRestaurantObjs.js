@@ -24,6 +24,7 @@ function updateRestaurantObj(restaurant, placeDetails) {
   restaurant.business_hours = placeDetails.opening_hours.weekday_text;
   restaurant.phone_number = placeDetails.formatted_phone_number;
   restaurant.maps_directions = placeDetails.url;
+  restaurant.website = placeDetails.website;
 
   // console.log("updated restaurant obj:", restaurant);
   return restaurant;
