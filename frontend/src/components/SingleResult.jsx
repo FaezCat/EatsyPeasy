@@ -22,16 +22,26 @@ export default function SingleResult(props) {
 
   const { itemData, defaultValue, selectedRestaurants, setSelectedRestaurants } = props;
 
+  const [selectedIndex, setSelectedIndex] = useState(defaultValue);
+
   const handleChange = (event) => {
     const newSelectedRestaurants = [...selectedRestaurants];
 
     newSelectedRestaurants[defaultValue] = itemData[event.target.value];
+    setSelectedIndex(event.target.value);
     console.log("event target value:", event.target.value);
+    console.log("newSelectedRestaurants", newSelectedRestaurants)
+    console.log("newSelectedRestaurants default value", newSelectedRestaurants[defaultValue])
 
     setSelectedRestaurants(newSelectedRestaurants);
   };
 
   const selectedRestaurant = selectedRestaurants[defaultValue];
+  console.log("selectedRestaurant", selectedRestaurant)
+  console.log("selectIndex", selectedIndex)
+  console.log('type of defaultValue:', typeof(defaultValue))
+  console.log(selectedRestaurant.restaurant_name)
+
   // const restaurantImage = getRestaurantPhoto(selectedRestaurant);
   // console.log("restaurant image:", restaurantImage);
 
@@ -48,7 +58,7 @@ export default function SingleResult(props) {
           <Select
             labelId="restaurant-select-label"
             id="restaurant-simple-select"
-            value={selectedRestaurant}
+            value={selectedIndex}
             label="Restaurant"
             onChange={handleChange}
             style={{fontFamily: 'Quicksand, sans-serif'}}
@@ -75,10 +85,13 @@ export default function SingleResult(props) {
           <h3>Popular Vegan/Vegetarian/Gluten-Free Dish</h3>
         </Item>
         <Item>
-          <h3>Rating: </h3>
-          <h3>Business Hours</h3>
-          <h3>Contact Information</h3>
-          <h3>Direction</h3>
+          <h3>Rating: {selectedRestaurant.ave_rating}</h3>
+          <h3>Business Hours:</h3>
+          <h4> {selectedRestaurant.business_hours}</h4>
+          <h3>Contact Information:</h3>
+          <h4>{selectedRestaurant.phone_number}</h4>
+          <h3>Directions:</h3>
+          <h4>{selectedRestaurant.maps_directions}</h4>
         </Item>
       </Stack>
     </div>

@@ -8,10 +8,10 @@ export default function Results(props) {
 
   const navigate = useNavigate();
 
-  const [selectedRestaurants, setSelectedRestaurants] = useState(
-    [props.itemData[0],
-    props.itemData[1],
-    props.itemData[2]]);
+  const [selectedRestaurants, setSelectedRestaurants] = useState([props.itemData[0], props.itemData[1], props.itemData[2]]);
+  
+  console.log("itemData", props.itemData)
+  console.log("selectedRestaurants", selectedRestaurants)
 
   const [poll, setPoll] = useState({}); //poll should be one object matching the ERD later
 
@@ -63,7 +63,6 @@ export default function Results(props) {
             setTimeout(() => {navigate('/linkpage', { state: {poll: pollObj} })}, 2000);
           }}>Generate Poll
       </Button>
-
     </Fragment>
  )
 }
