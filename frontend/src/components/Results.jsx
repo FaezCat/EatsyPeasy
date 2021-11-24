@@ -8,6 +8,9 @@ export default function Results(props) {
   const navigate = useNavigate();
 
   const [selectedRestaurants, setSelectedRestaurants] = useState([props.itemData[0], props.itemData[1], props.itemData[2]]);
+  
+  console.log("itemData", props.itemData)
+  console.log("selectedRestaurants", selectedRestaurants)
 
   return (
     <Fragment>
@@ -25,7 +28,7 @@ export default function Results(props) {
  {/* TO DO: Button */}
       {/* <Button 
           style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
-          onClick={() => {props.clickHandler(""); navigate('/poll'); console.log("");}}>Generate Poll
+          onClick={() => {props.clickHandler(""); navigate(''); console.log("");}}>Generate Poll
       </Button> */}
 
     </Fragment>
