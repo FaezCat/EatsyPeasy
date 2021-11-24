@@ -3,6 +3,7 @@ import SingleResult from "./SingleResult";
 import Button from '@mui/material/Button';
 import { Link, useNavigate } from "react-router-dom";
 import generateRandomString from "../helpers/UniqueLink";
+import axios from "axios";
 
 export default function Results(props) {
 
@@ -14,10 +15,24 @@ export default function Results(props) {
   console.log("itemData", props.itemData)
   console.log("selectedRestaurants", selectedRestaurants)
 
-  const [poll, setPoll] = useState({}); //poll should be one object matching the ERD later
+  const [poll, setPoll] = useState(null); //poll should be one object matching the ERD later
 
   useEffect(() => {
-    //post request here
+    if (poll) {
+    console.log("poll", poll);
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/polls/create', //make sure to point this to backend
+      data: poll
+    })
+    .then(function (response) {
+      console.log("axios request posted");
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
   }, [poll])
 
   const numericId = generateRandomString();

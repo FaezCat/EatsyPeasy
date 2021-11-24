@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :polls, only: [:index, :create]
   resources :users, only: [:index]
   
-  post 'polls/:id' => 'catalog#view'
+  # post 'polls/:id' => 'catalog#view'
+  post 'polls/create' 
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
