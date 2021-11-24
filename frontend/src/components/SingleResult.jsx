@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
 import "../styles/SingleResult.scss";
 import Paper from '@mui/material/Paper';
@@ -10,6 +10,9 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import getRestaurantPhoto from "../helpers/GetRestaurantPhoto";
 import { ImageListItem } from "@mui/material";
+import Button from '@mui/material/Button';
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -19,8 +22,9 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function SingleResult(props) {
+  const navigate = useNavigate();
 
-  const { itemData, defaultValue, selectedRestaurants, setSelectedRestaurants } = props;
+  const { itemData, defaultValue, selectedRestaurants, setSelectedRestaurants, parentComponent, userName } = props;
 
   const [selectedIndex, setSelectedIndex] = useState(defaultValue);
 
@@ -45,16 +49,42 @@ export default function SingleResult(props) {
   const restaurantImage = getRestaurantPhoto(selectedRestaurant);
   console.log("restaurant image:", restaurantImage);
 
+  const [pollVote, setPollVote] = useState(null)
+
+  useEffect(() => {
+    if (pollVote && userName) {
+    console.log("pollVote", pollVote);
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/polls/submit', //make sure to point this to backend
+      data: {
+        place_id: selectedRestaurant.place_id,
+        name: userName,
+        alpha_numeric_id: "test"
+      }
+    })
+    .then(function (response) {
+      console.log("axios request posted");
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+  }, [pollVote])
+
   return (
     <div className="column">
       <Stack
         direction="column"
         spacing={{ xs: 1, sm: 2, md: 2 }}>
-        <Item>
+      <Item>
 
+      {(parentComponent === "Results") && 
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
           <InputLabel id="restaurant-simple-select-label">Choice {defaultValue + 1}</InputLabel>
+          {/* Select - This is for the drop down */}
           <Select
             labelId="restaurant-select-label"
             id="restaurant-simple-select"
@@ -69,7 +99,8 @@ export default function SingleResult(props) {
           </Select>
         </FormControl>
       </Box>
-
+      }
+      
       {/* TO DO: get image, other info from API */}
           <ImageListItem key={props.defaultValue.restaurant_name}>
             <img
@@ -93,6 +124,16 @@ export default function SingleResult(props) {
           <h3>Directions:</h3>
           <h4>{selectedRestaurant.maps_directions}</h4>
         </Item>
+
+        {(parentComponent === "PollingPage") && 
+          <Button 
+            style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
+            onClick={() => {
+              setPollVote(pollVote); //trigger to do POST request
+              setTimeout(() => {navigate('/poll/:alpha_numeric_id/results')}, 2000);
+            }}>I Choose you!
+          </Button>
+        }
       </Stack>
     </div>
 
