@@ -1,9 +1,14 @@
-import { Fragment } from "react";
 import { Bar } from 'react-chartjs-2';
+import { useEffect } from "react";
+import axios from 'axios';
+import { useParams } from "react-router-dom";
 
 
 export default function PollingResults(props) {
   
+  const { alpha_numeric_id } = useParams();
+
+
   useEffect(() => {
     
     axios({
@@ -13,16 +18,16 @@ export default function PollingResults(props) {
     .then(function (response) {
       console.log("should be the returned 1 poll:", response);
       //add a function to oragnize the incoming poll data array
-      const createdRestObjs = organizePollJSON(response);
-      console.log("createdRestObjs", createdRestObjs);
-      //and make the get call for photo etc
-      const updatedObjs = addDetailsToRestaurantObjs(createdRestObjs);
-      console.log("updatedObjs", updatedObjs);
-      return updatedObjs;
+      // const createdRestObjs = organizePollJSON(response);
+      // console.log("createdRestObjs", createdRestObjs);
+      // //and make the get call for photo etc
+      // const updatedObjs = addDetailsToRestaurantObjs(createdRestObjs);
+      // console.log("updatedObjs", updatedObjs);
+      // return updatedObjs;
     })
-    .then((updatedObjs)=> {
-      setSelectedRestaurants(updatedObjs);
-    })
+    // .then((updatedObjs)=> {
+    //   setSelectedRestaurants(updatedObjs);
+    // })
     .catch(function (error) {
       console.log(error);
     });

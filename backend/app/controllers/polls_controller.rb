@@ -32,6 +32,14 @@ class PollsController < ApplicationController
     #   render json: poll.errors
     # end
   end
+
+  def results
+    poll = Poll.find_by(alpha_numeric_id: params[:alpha_numeric_id])
+    users = User.where(poll_id: poll.id)
+    #render json: poll
+    render :json => {:users => users, 
+                                  :poll => poll }
+  end
   
   private
 

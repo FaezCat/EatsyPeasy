@@ -49,7 +49,7 @@ export default function SingleResult(props) {
   console.log('type of defaultValue:', typeof(defaultValue))
   console.log(selectedRestaurant.restaurant_name)
 
-  const [pollVote, setPollVote] = useState(null)
+  const [pollVote, setPollVote] = useState(null);
 
   useEffect(() => {
     if (pollVote && userName) {
@@ -64,12 +64,12 @@ export default function SingleResult(props) {
           alpha_numeric_id: alpha_numeric_id
         }
       })
-      .then(function (response) {
+      .then(function (pollData) {
         console.log("axios request posted");
-        console.log(response);
+        console.log(pollData);
       })
       .then(()=>{
-        navigate('/poll/:alpha_numeric_id/results');
+        navigate(`/poll/${alpha_numeric_id}/results`);
       })
       .catch(function (error) {
         console.log(error);

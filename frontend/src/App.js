@@ -108,8 +108,8 @@ function App() {
             element={<Results itemData={restaurantObjs} />}
           />
           <Route path="/linkpage" element={<LinkPage />} />
-          <Route path="/poll/:alpha_numeric_id" element={<PollingPage />} />
           <Route path="/poll/:alpha_numeric_id/results" element={<PollingResults />} />
+          <Route path="/poll/:alpha_numeric_id" element={<PollingPage />} />
         </Routes>
       </div>
   );
