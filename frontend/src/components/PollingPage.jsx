@@ -1,70 +1,43 @@
 import { Fragment, useState, useEffect } from "react";
 import SingleResult from "./SingleResult";
-import { Link, useNavigate } from "react-router-dom";
-import generateRandomString from "../helpers/UniqueLink";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import TextField from '@mui/material/TextField';
 
 export default function PollingPage(props) {
 
+  const { alpha_numeric_id } = useParams();
+
   const navigate = useNavigate();
 
-  const [selectedRestaurants, setSelectedRestaurants] = useState([props.itemData[0], props.itemData[1], props.itemData[2]]);
-  
-  
-  console.log("itemData", props.itemData)
-  console.log("selectedRestaurants", selectedRestaurants)
+  console.log("alpha num id", alpha_numeric_id);
 
-  const [poll, setPoll] = useState(null); //poll should be one object matching the ERD later
+  // const [selectedRestaurants, setSelectedRestaurants] = useState([props.itemData[0], props.itemData[1], props.itemData[2]]);
+  
+  
+  // console.log("itemData", props.itemData)
+  // console.log("selectedRestaurants", selectedRestaurants)
 
   useEffect(() => {
-    if (poll) {
-    console.log("poll", poll);
+ 
     axios({
-      method: 'post',
-      url: 'http://localhost:3000/polls/create', //make sure to point this to backend
-      data: poll
+      method: 'get', //need to update this to GET the 3 rest objs to populate this page
+      url: `http://localhost:3000/polls/show/${alpha_numeric_id}`, //make sure to point this to backend
     })
     .then(function (response) {
-      console.log("axios request posted");
-      console.log(response);
+      console.log("axios request completed");
+      console.log("should be the returned 1 poll:", response);
     })
     .catch(function (error) {
       console.log(error);
     });
-  }
-  }, [poll])
-
-  const numericId = generateRandomString();
-  
-  function createPoll (selectedRestaurants) {
-    const poll = {};
-    for (let i = 0; i < selectedRestaurants.length; i++) {
-      const restPlaceID = `restaurant_${i+1}_place_id`;
-      const restName = `restaurant_${i+1}_name`;
-      const restVotes = `restaurant_${i+1}_votes`;
-      const restHours = `restaurant_${i+1}_business_hours`;
-      const restNumber = `restaurant_${i+1}_phone_number`;
-      const restWebsite = `restaurant_${i+1}_website`;
-      const restMaps = `restaurant_${i+1}_maps_directions`;
-      poll[restPlaceID] = selectedRestaurants[i].place_id;
-      poll[restName] = selectedRestaurants[i].restaurant_name;
-      poll[restVotes] = 0;
-      poll[restHours] = selectedRestaurants[i].business_hours;
-      poll[restNumber] = selectedRestaurants[i].phone_number;
-      poll[restWebsite] = selectedRestaurants[i].website; 
-      poll[restMaps] = selectedRestaurants[i].maps_directions;
-    }
-    poll["alpha_numeric_id"] = numericId;
-    console.log("poll obj:", poll);
-    return poll;
-  }
+  }, [])
 
   let userName = null;
 
   return (
     <Fragment>
-      <div className="page-number-display">
+      {/* <div className="page-number-display">
         4 of 4
       </div>
       <h1>Your Customized Selections</h1>
@@ -80,7 +53,7 @@ export default function PollingPage(props) {
         InputLabelProps={{style: {fontFamily: 'Quicksand, sans-serif'}}} 
         fullWidth id="input-with-sx" 
         label="Identify yourself :)"
-        />
+        /> */}
 
     </Fragment>
  )
