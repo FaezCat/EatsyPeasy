@@ -14,6 +14,7 @@ Goals for Thursday:
   - Voting routing, back-end to front to display the correct poll
   - Voting routing, front to back-end (when users vote)
   - Users table updating
+  - Polling page: Add an error if user does not enter their name
 
 Goals for Friday:
 
@@ -27,10 +28,11 @@ Goals for weekend:
   - linkpage: add library for "web share"
 - Add a footer (about us, contact info)
 - Heroku
+- Possible web socket stretch approach (maybe will use action cable on backend)
 
 Goals for Mon-Tues:
 
-- Heroku
+- Heroku (biggest challenge will be connecting front-end to back-end issues)
 
 Next Tuesday:
 
