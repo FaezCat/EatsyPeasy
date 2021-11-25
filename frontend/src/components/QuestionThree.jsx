@@ -50,9 +50,9 @@ export default function QuestionThree(props) {
       <Button variant="contained" onClick={() => {
         props.clickHandler(pricePoint); 
         props.setResults(true);
-        setTimeout(()=> {
-          navigate("/results");
-        }, 3000)
+        // setTimeout(()=> {
+        //   navigate("/results");
+        // }, 3000)
       }}>Next</Button>
     </div>}
     {props.results === true && <CircularProgress />}
