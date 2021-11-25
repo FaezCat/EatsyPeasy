@@ -7,7 +7,6 @@ class PollsController < ApplicationController
   end
 
   def create
-    #p params
     poll = Poll.create!(polls_params)
     render :nothing => true
   end
@@ -23,8 +22,7 @@ class PollsController < ApplicationController
   private
 
   def poll
-    p params
-    @poll ||= Poll.find(params[:alpha_numeric_id])
+    @poll ||= Poll.where(alpha_numeric_id: params[:alpha_numeric_id])
   end
 
   def polls_params
