@@ -15,8 +15,12 @@ import {
 } from "./helpers/CreateRestaurantObjs";
 import PollingPage from "./components/PollingPage";
 import PollingResults from "./components/PollingResults";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+
+  const navigate = useNavigate();
+
   const [answers, setAnswers] = useState({
     answerOne: "",
     answerTwo: [],
@@ -67,6 +71,9 @@ function App() {
           );
           setRestaurantObjs(updatedObjs);
         })
+        .then(()=>{
+          navigate("/results");
+        })
         .catch(function (error) {
           console.log(error);
         });
@@ -74,7 +81,6 @@ function App() {
   }, [results]);
 
   return (
-    <Router>
       <div className="background">
         <Nav />
         <Routes>
@@ -106,7 +112,6 @@ function App() {
           <Route path="/poll/:alpha_numeric_id/results" element={<PollingResults />} />
         </Routes>
       </div>
-    </Router>
   );
 }
 export default App;
