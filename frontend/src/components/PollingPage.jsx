@@ -1,11 +1,11 @@
 import { Fragment, useState, useEffect } from "react";
 import SingleResult from "./SingleResult";
-import Button from '@mui/material/Button';
 import { Link, useNavigate } from "react-router-dom";
 import generateRandomString from "../helpers/UniqueLink";
 import axios from "axios";
+import TextField from '@mui/material/TextField';
 
-export default function Results(props) {
+export default function PollingPage(props) {
 
   const navigate = useNavigate();
 
@@ -60,6 +60,8 @@ export default function Results(props) {
     return poll;
   }
 
+  let userName = null;
+
   return (
     <Fragment>
       <div className="page-number-display">
@@ -67,20 +69,19 @@ export default function Results(props) {
       </div>
       <h1>Your Customized Selections</h1>
       <div>
-        {props.itemData[0] && <SingleResult itemData={props.itemData} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants}/>}
-        {props.itemData[1] && <SingleResult itemData={props.itemData} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants}/>}
-        {props.itemData[2] && <SingleResult itemData={props.itemData} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants}/>}
+        {props.itemData[0] && <SingleResult itemData={props.itemData} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName}/>}
+        {props.itemData[1] && <SingleResult itemData={props.itemData} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName}/>}
+        {props.itemData[2] && <SingleResult itemData={props.itemData} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName}/>}
       </div>
-      <h3>Need some input? Generate a poll to share with your friends!</h3>
-      
-      <Button 
-          style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
-          onClick={() => {
-            const pollObj = createPoll(selectedRestaurants);
-            setPoll(pollObj); //trigger to do POST request
-            setTimeout(() => {navigate('/linkpage', { state: {poll: pollObj} })}, 2000);
-          }}>Generate Poll
-      </Button>
+      <h3>Pick one of the choices above that you are craving!</h3>
+      <TextField 
+        value={userName} 
+        // onChange={(event) => setAnswer(event.target.value)} 
+        InputLabelProps={{style: {fontFamily: 'Quicksand, sans-serif'}}} 
+        fullWidth id="input-with-sx" 
+        label="Identify yourself :)"
+        />
+
     </Fragment>
  )
 }
