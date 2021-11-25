@@ -8,8 +8,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import getRestaurantPhoto from "../helpers/GetRestaurantPhoto";
 import { ImageListItem } from "@mui/material";
+import { getPhotoUrl } from "../helpers/GetRestaurantPhotoUrl";
 import Button from '@mui/material/Button';
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -26,28 +26,28 @@ export default function SingleResult(props) {
 
   const { itemData, defaultValue, selectedRestaurants, setSelectedRestaurants, parentComponent, userName } = props;
 
-  const [selectedIndex, setSelectedIndex] = useState(defaultValue);
+  const selectedRestaurant = selectedRestaurants[defaultValue];
 
+  const imageUrl = getPhotoUrl(selectedRestaurant);
+  
+  const [selectedIndex, setSelectedIndex] = useState(defaultValue);
+  
   const handleChange = (event) => {
     const newSelectedRestaurants = [...selectedRestaurants];
-
+    
     newSelectedRestaurants[defaultValue] = itemData[event.target.value];
     setSelectedIndex(event.target.value);
     console.log("event target value:", event.target.value);
     console.log("newSelectedRestaurants", newSelectedRestaurants)
     console.log("newSelectedRestaurants default value", newSelectedRestaurants[defaultValue])
-
+    
     setSelectedRestaurants(newSelectedRestaurants);
   };
-
-  const selectedRestaurant = selectedRestaurants[defaultValue];
+  
   console.log("selectedRestaurant", selectedRestaurant)
   console.log("selectIndex", selectedIndex)
   console.log('type of defaultValue:', typeof(defaultValue))
   console.log(selectedRestaurant.restaurant_name)
-
-  const restaurantImage = getRestaurantPhoto(selectedRestaurant);
-  console.log("restaurant image:", restaurantImage);
 
   const [pollVote, setPollVote] = useState(null)
 
@@ -105,7 +105,7 @@ export default function SingleResult(props) {
           <ImageListItem key={props.defaultValue.restaurant_name}>
             <img
               // src={`https://thingproxy.freeboard.io/fetch/${restaurantImage}`}
-              src={`data:image/jpeg;base64,/${restaurantImage}`}
+              src={imageUrl}
               alt={`temp`}
               />
           </ImageListItem>
