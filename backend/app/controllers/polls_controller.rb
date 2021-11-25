@@ -13,9 +13,7 @@ class PollsController < ApplicationController
   end
 
   def show
-    puts "in show"
     if poll
-      puts "found a matching poll"
       render json: poll
     else
       render json: poll.errors

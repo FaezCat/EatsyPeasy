@@ -11,11 +11,11 @@ export function createRestaurantObjs(results) {
     if (restaurant.business_status === "OPERATIONAL") {
       arrayOfRestaurantObjs.push({
         place_id: restaurant.place_id,
-        restaurant_name: restaurant.name,
-        ave_rating: restaurant.rating,
-        total_ratings: restaurant.user_ratings_total,
-        restaurant_photo_ref: restaurant.photos[0].photo_reference,
-        restaurant_photo_width: restaurant.photos[0].width,
+        // restaurant_name: restaurant.name,
+        // ave_rating: restaurant.rating,
+        // total_ratings: restaurant.user_ratings_total,
+        // restaurant_photo_ref: restaurant.photos[0].photo_reference,
+        // restaurant_photo_width: restaurant.photos[0].width,
         // we need to update these together to what data we retrieve at first (that is unavailable from the places API)
       });
     }
@@ -29,6 +29,12 @@ function updateRestaurantObj(restaurant, placeDetails) {
   restaurant.phone_number = placeDetails.formatted_phone_number;
   restaurant.maps_directions = placeDetails.url;
   restaurant.website = placeDetails.website;
+  // new keys
+  restaurant.restaurant_name = placeDetails.name;
+  restaurant.ave_rating = placeDetails.rating;
+  restaurant.total_ratings = placeDetails.user_ratings_total;
+  restaurant.restaurant_photo_ref = placeDetails.photos[0].photo_reference;
+  restaurant.restaurant_photo_width = placeDetails.photos[0].width;
 
   // console.log("updated restaurant obj:", restaurant);
   return restaurant;
