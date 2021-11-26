@@ -8,11 +8,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { alpha, ImageListItem } from "@mui/material";
+import { ImageListItem } from "@mui/material";
 import { getPhotoUrl } from "../helpers/GetRestaurantPhotoUrl";
 import Button from '@mui/material/Button';
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -36,19 +36,10 @@ export default function SingleResult(props) {
     const newSelectedRestaurants = [...selectedRestaurants];
     
     newSelectedRestaurants[defaultValue] = itemData[event.target.value];
-    setSelectedIndex(event.target.value);
-    console.log("event target value:", event.target.value);
-    console.log("newSelectedRestaurants", newSelectedRestaurants)
-    console.log("newSelectedRestaurants default value", newSelectedRestaurants[defaultValue])
-    
+    setSelectedIndex(event.target.value);    
     setSelectedRestaurants(newSelectedRestaurants);
   };
   
-  console.log("selectedRestaurant", selectedRestaurant)
-  console.log("selectIndex", selectedIndex)
-  console.log('type of defaultValue:', typeof(defaultValue))
-  console.log(selectedRestaurant.restaurant_name)
-
   const [pollVote, setPollVote] = useState(null);
 
   useEffect(() => {
@@ -84,31 +75,32 @@ export default function SingleResult(props) {
         spacing={{ xs: 1, sm: 2, md: 2 }}>
       <Item>
 
-      {(parentComponent === "Results") && 
-      <Box sx={{ minWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel id="restaurant-simple-select-label">Choice {defaultValue + 1}</InputLabel>
-          {/* Select - This is for the drop down */}
-          <Select
-            labelId="restaurant-select-label"
-            id="restaurant-simple-select"
-            value={selectedIndex}
-            label="Restaurant"
-            onChange={handleChange}
-            style={{fontFamily: 'Quicksand, sans-serif'}}
-          >
-          {itemData.map((item, index) => {
-            return <MenuItem key={index} value={index}>{item.restaurant_name}</MenuItem>
-          })}
-          </Select>
-        </FormControl>
-      </Box>
+      {(parentComponent === "PollingPage") && 
+        <Item>
+          <h3>{selectedRestaurant.restaurant_name}</h3>
+        </Item>
       }
-      
-      {/* TO DO: get image, other info from API */}
+      {(parentComponent === "Results") && 
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="restaurant-simple-select-label">Choice {defaultValue + 1}</InputLabel>
+            <Select
+              labelId="restaurant-select-label"
+              id="restaurant-simple-select"
+              value={selectedIndex}
+              label="Restaurant"
+              onChange={handleChange}
+              style={{fontFamily: 'Quicksand, sans-serif'}}
+            >
+            {itemData.map((item, index) => {
+              return <MenuItem key={index} value={index}>{item.restaurant_name}</MenuItem>
+            })}
+            </Select>
+          </FormControl>
+        </Box>
+      }
           <ImageListItem key={props.defaultValue.restaurant_name}>
             <img
-              // src={`https://thingproxy.freeboard.io/fetch/${restaurantImage}`}
               src={imageUrl}
               alt={`temp`}
               />
