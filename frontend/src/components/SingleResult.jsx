@@ -120,7 +120,8 @@ export default function SingleResult(props) {
           <h3>Contact Information:</h3>
           <h4>{selectedRestaurant.phone_number}</h4>
           <h3>Directions:</h3>
-          <h4>{selectedRestaurant.maps_directions}</h4>
+          <h4>{selectedRestaurant.formatted_address}</h4>
+          <h4><a href={selectedRestaurant.maps_directions} target="_blank"><img src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="100" height="100"/></a></h4>
         </Item>
 
         {(parentComponent === "PollingPage") && 

@@ -35,7 +35,8 @@ function updateRestaurantObj(restaurant, placeDetails) {
   restaurant.total_ratings = placeDetails.user_ratings_total;
   restaurant.restaurant_photo_ref = placeDetails.photos[0].photo_reference;
   restaurant.restaurant_photo_width = placeDetails.photos[0].width;
-
+  // new key in support of displaying the formatted address
+  restaurant.formatted_address = placeDetails.formatted_address;
   // console.log("updated restaurant obj:", restaurant);
   return restaurant;
 }
