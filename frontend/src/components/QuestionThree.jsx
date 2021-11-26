@@ -51,11 +51,11 @@ export default function QuestionThree(props) {
         props.clickHandler(pricePoint); 
         props.setResults(true);
         // setTimeout(()=> {
-        //   navigate("/results");
+          navigate("/results");
         // }, 3000)
       }}>Next</Button>
     </div>}
-    {props.results === true && <CircularProgress />}
+    {/* {props.results === true && <CircularProgress />} */}
     </Fragment>
   );
 }

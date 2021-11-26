@@ -10,7 +10,7 @@ Goals for Thursday:
 - Voting Page (built off of Results pg)
   - Refactor Navigate - min 1 page to change
   - Refactor for state persistence\* soon.exe
-  - Refactor the API calls to be in results versus in app.js
+  - [X] Refactor the API calls to be in results versus in app.js
 
 Goals for Friday:
 
