@@ -1,5 +1,5 @@
 import { Bar } from 'react-chartjs-2';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 import { Fragment } from 'react';
@@ -23,29 +23,52 @@ export default function PollingResults(props) {
   const [usersData, setUsersData] = useState(false);
   const [winningRestaurant, setWinningRestaurant] = useState(false);
 
-  useEffect(() => {
-    
-    axios({
-      method: 'get', //need to update this to GET the 3 rest objs to populate this page
-      url: `http://localhost:3000/polls/show/${alpha_numeric_id}/results`, //make sure to point this to backend
-    })
-    .then(function (response) {
-      console.log("should be the returned 1 poll:", response);
-      setPollData(response.data.poll);
-      setUsersData(response.data.users);
-
-      return response.data.poll;
-    })
-    .then ((pollData)=> {
-      const topRestaurant = getWinningRestaurant(pollData);
-      setWinningRestaurant(topRestaurant);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }, [])
+  const pollApiCall = () => axios({
+    method: 'get', //need to update this to GET the 3 rest objs to populate this page
+    url: `http://localhost:3000/polls/show/${alpha_numeric_id}/results`, //make sure to point this to backend
+  })
+  .then(function (response) {
+    console.log("should be the returned 1 poll:", response);
+    setPollData(response.data.poll);
+    setUsersData(response.data.users);
+    return response.data.poll;
+  })
+  .then ((pollData)=> {
+    const topRestaurant = getWinningRestaurant(pollData);
+    setWinningRestaurant(topRestaurant);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
   
+  // useInterval custom hook - refreshes our data via fresh API calls without causing loops
+  function useInterval(callback, delay) {
+    const savedCallback = useRef();
+    
+    // Remember the latest callback.
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+    
+    // Set up the interval.
+    useEffect(() => {
+      function tick() {
+        savedCallback.current();
+      }
+      if (delay !== null) {
+        let id = setInterval(tick, delay);
+        return () => clearInterval(id);
+      }
+    }, [delay]);
+  }
 
+  useEffect(() => {
+    pollApiCall();
+  }, [])
+
+  // calling the useInterval custom hook - set to 5s
+  useInterval(pollApiCall, 5000)
+  
   const data = {
     labels: [ pollData.restaurant_1_name, pollData.restaurant_2_name, pollData.restaurant_3_name],
     datasets: [
@@ -96,6 +119,7 @@ export default function PollingResults(props) {
     maintainAspectRatio: false
   };
 
+  // this is where we actually call the useInterval custom hook
 return(
   <Fragment>
     {winningRestaurant && <div>
