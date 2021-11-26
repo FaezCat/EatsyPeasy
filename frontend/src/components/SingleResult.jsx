@@ -28,6 +28,8 @@ export default function SingleResult(props) {
 
   const selectedRestaurant = selectedRestaurants[defaultValue];
 
+  console.log(selectedRestaurants)
+
   const imageUrl = getPhotoUrl(selectedRestaurant);
   
   const [selectedIndex, setSelectedIndex] = useState(defaultValue);

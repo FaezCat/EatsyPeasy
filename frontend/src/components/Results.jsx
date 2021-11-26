@@ -4,16 +4,65 @@ import Button from '@mui/material/Button';
 import { Link, useNavigate } from "react-router-dom";
 import generateRandomString from "../helpers/UniqueLink";
 import axios from "axios";
+import { getPrice, getQuery } from "../helpers/GooglePlacesAPIFunctions";
+import {
+  createRestaurantObjs,
+  addDetailsToRestaurantObjs,
+} from "../helpers/CreateRestaurantObjs";
 
 export default function Results(props) {
 
   const navigate = useNavigate();
 
-  const [selectedRestaurants, setSelectedRestaurants] = useState([props.itemData[0], props.itemData[1], props.itemData[2]]);
+  // const [selectedRestaurants, setSelectedRestaurants] = useState([props.itemData[0], props.itemData[1], props.itemData[2]]);
   
-  
-  console.log("itemData", props.itemData)
-  console.log("selectedRestaurants", selectedRestaurants)
+  const [itemData, setItemData] = useState([]);
+  const [selectedRestaurants, setSelectedRestaurants] = useState([]);
+
+  // console.log(props.answers)
+  // console.log("itemData", props.itemData)
+  // console.log("selectedRestaurants", selectedRestaurants)
+  useEffect(() => {
+      const range = getPrice(props.answers.answerThree);
+      const query = getQuery(props.answers.answerOne, props.answers.answerTwo);
+      //API cors proxy that has some limits (do not use):
+      //const url = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?";
+
+      //API cors proxy that works (for our project scale):
+      const url =
+        "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/textsearch/json?";
+      const params = {
+        query: query,
+        minprice: range[0],
+        maxprice: range[1],
+        key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY,
+      };
+
+      axios
+        .get(url, { params })
+        .then(function (response) {
+          const createdRestObjs = createRestaurantObjs(response);
+          console.log("initial objs from first call:", createdRestObjs);
+          return createdRestObjs;
+        })
+        .then((createdRestObjs) => {
+          const updatedObjs = addDetailsToRestaurantObjs(createdRestObjs);
+          console.log("updated objs 2nd call:", updatedObjs);
+          return updatedObjs;
+        })
+        .then(function (updatedObjs) {
+          console.log(
+            "the .then updated objs before state update:",
+            updatedObjs
+          );
+          setItemData(updatedObjs);
+          setSelectedRestaurants([updatedObjs[0], updatedObjs[1], updatedObjs[2]]);
+          console.log([updatedObjs[0], updatedObjs[1], updatedObjs[2]])
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }, []);
 
   const [poll, setPoll] = useState(null); //poll should be one object matching the ERD later
 
@@ -50,7 +99,7 @@ export default function Results(props) {
       poll[restPlaceID] = selectedRestaurants[i].place_id;
       poll[restName] = selectedRestaurants[i].restaurant_name;
       poll[restVotes] = 0;
-      poll[restHours] = JSON.stringify(selectedRestaurants[i].business_hours);
+      poll[restHours] = selectedRestaurants[i].business_hours;
       poll[restNumber] = selectedRestaurants[i].phone_number;
       poll[restWebsite] = selectedRestaurants[i].website; 
       poll[restMaps] = selectedRestaurants[i].maps_directions;
@@ -67,9 +116,9 @@ export default function Results(props) {
       </div>
       <h1>Your Customized Selections</h1>
       <div>
-        {props.itemData[0] && <SingleResult itemData={props.itemData} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
-        {props.itemData[1] && <SingleResult itemData={props.itemData} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
-        {props.itemData[2] && <SingleResult itemData={props.itemData} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
+        {(itemData[0] && selectedRestaurants.length > 0) && <SingleResult itemData={itemData} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
+        {(itemData[1] && selectedRestaurants.length > 0) &&  <SingleResult itemData={itemData} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
+        {(itemData[2] && selectedRestaurants.length > 0) && <SingleResult itemData={itemData} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
       </div>
       <h3>Need some input? Generate a poll to share with your friends!</h3>
       
