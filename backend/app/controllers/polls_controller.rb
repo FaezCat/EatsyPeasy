@@ -18,9 +18,35 @@ class PollsController < ApplicationController
       render json: poll.errors
     end
   end
+
+  def update
+    @poll = Poll.find_by(alpha_numeric_id: params[:alpha_numeric_id])
+    # if poll
+      #knowing which one was voted for, need to update corresponding vote count by 1
+      restVote = params[:vote] #restaurant_{number}_votes
+      puts @poll
+      @poll.increment!(restVote.to_sym,1)
+      user = User.create(name: params[:name], poll_id: poll[:id], restaurant_choice: params[:vote])
+      render json: @poll
+      # else
+    #   render json: poll.errors
+    # end
+  end
+
+  def results
+    poll = Poll.find_by(alpha_numeric_id: params[:alpha_numeric_id])
+    users = User.where(poll_id: poll.id)
+    #render json: poll
+    render :json => {:users => users, 
+                                  :poll => poll }
+  end
   
   private
 
+  # def vote_params
+  #   params.permit(:place_id, :name, :alpha_numeric_id)
+  # end
+  
   def poll
     @poll ||= Poll.where(alpha_numeric_id: params[:alpha_numeric_id])
   end

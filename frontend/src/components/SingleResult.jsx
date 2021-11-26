@@ -8,7 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { ImageListItem } from "@mui/material";
+import { alpha, ImageListItem } from "@mui/material";
 import { getPhotoUrl } from "../helpers/GetRestaurantPhotoUrl";
 import Button from '@mui/material/Button';
 import axios from "axios";
@@ -24,7 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function SingleResult(props) {
   const navigate = useNavigate();
 
-  const { itemData, defaultValue, selectedRestaurants, setSelectedRestaurants, parentComponent, userName } = props;
+  const { itemData, defaultValue, selectedRestaurants, setSelectedRestaurants, parentComponent, userName, alpha_numeric_id } = props;
 
   const selectedRestaurant = selectedRestaurants[defaultValue];
 
@@ -49,28 +49,32 @@ export default function SingleResult(props) {
   console.log('type of defaultValue:', typeof(defaultValue))
   console.log(selectedRestaurant.restaurant_name)
 
-  const [pollVote, setPollVote] = useState(null)
+  const [pollVote, setPollVote] = useState(null);
 
   useEffect(() => {
     if (pollVote && userName) {
-    console.log("pollVote", pollVote);
-    axios({
-      method: 'post',
-      url: 'http://localhost:3000/polls/submit', //make sure to point this to backend
-      data: {
-        place_id: selectedRestaurant.place_id,
-        name: userName,
-        alpha_numeric_id: "test"
-      }
-    })
-    .then(function (response) {
-      console.log("axios request posted");
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+      console.log("pollVote is a place_id:", pollVote);
+      axios({
+        method: 'post',
+        url: 'http://localhost:3000/polls/update', //make sure to point this to backend
+        data: {
+          place_id: selectedRestaurant.place_id,
+          vote: `restaurant_${defaultValue+1}_votes`,
+          name: userName,
+          alpha_numeric_id: alpha_numeric_id
+        }
+      })
+      .then(function (pollData) {
+        console.log("axios request posted");
+        console.log(pollData);
+      })
+      .then(()=>{
+        navigate(`/poll/${alpha_numeric_id}/results`);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
   }, [pollVote])
 
   return (
@@ -129,8 +133,9 @@ export default function SingleResult(props) {
           <Button 
             style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
             onClick={() => {
-              setPollVote(pollVote); //trigger to do POST request
-              setTimeout(() => {navigate('/poll/:alpha_numeric_id/results')}, 2000);
+              //update pollVote to place_id
+              setPollVote(selectedRestaurant.place_id); //trigger to do POST request
+              // setTimeout(() => {navigate('/poll/:alpha_numeric_id/results')}, 2000);
             }}>I Choose you!
           </Button>
         }
