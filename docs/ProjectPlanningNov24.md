@@ -11,16 +11,18 @@ Goals for Thursday:
   - Refactor Navigate - min 1 page to change
   - Refactor for state persistence\* soon.exe
   - Refactor the API calls to be in results versus in app.js
-  [X] Voting routing, back-end to front to display the correct poll
-  [X] Voting routing, front to back-end (when users vote)
-  [X] Users table updating
-  - Polling page: Add an error if user does not enter their name
-- add setInterval for PollingResults page
 
 Goals for Friday:
 
-[X] Poll results page with accurate data
+  [X] Poll results page with accurate data
   [X] Polling routing back to front for poll results updates
+  [X] Voting routing, back-end to front to display the correct poll
+  [X] Voting routing, front to back-end (when users vote)
+  [X] Users table updating
+  [X] Favicon
+  - Polling page: Add an error if user does not enter their name
+  - add setInterval for PollingResults page
+
 - Menu API functionality or other API to bring in functionality
 
 Goals for weekend:
