@@ -127,9 +127,7 @@ export default function SingleResult(props) {
           <Button 
             style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
             onClick={() => {
-              //update pollVote to place_id
               setPollVote(selectedRestaurant.place_id); //trigger to do POST request
-              // setTimeout(() => {navigate('/poll/:alpha_numeric_id/results')}, 2000);
             }}>I Choose you!
           </Button>
         }

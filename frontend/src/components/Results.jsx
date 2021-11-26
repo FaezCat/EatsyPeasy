@@ -66,6 +66,8 @@ export default function Results(props) {
 
   const [poll, setPoll] = useState(null); //poll should be one object matching the ERD later
 
+  //let pollObj = null;
+
   useEffect(() => {
     if (poll) {
     console.log("poll", poll);
@@ -77,6 +79,9 @@ export default function Results(props) {
     .then(function (response) {
       console.log("axios request posted");
       console.log(response);
+    })
+    .then((pollObj)=>{
+      navigate('/linkpage', { state: {poll: poll} });
     })
     .catch(function (error) {
       console.log(error);
@@ -127,7 +132,6 @@ export default function Results(props) {
           onClick={() => {
             const pollObj = createPoll(selectedRestaurants);
             setPoll(pollObj); //trigger to do POST request
-            setTimeout(() => {navigate('/linkpage', { state: {poll: pollObj} })}, 2000);
           }}>Generate Poll
       </Button>
     </Fragment>
