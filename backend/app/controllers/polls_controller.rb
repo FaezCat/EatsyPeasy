@@ -24,7 +24,6 @@ class PollsController < ApplicationController
     # if poll
       #knowing which one was voted for, need to update corresponding vote count by 1
       restVote = params[:vote] #restaurant_{number}_votes
-      puts @poll
       @poll.increment!(restVote.to_sym,1)
       user = User.create(name: params[:name], poll_id: poll[:id], restaurant_choice: params[:vote])
       render json: @poll
