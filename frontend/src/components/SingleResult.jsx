@@ -8,6 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Rating from '@mui/material/Rating';
 import { ImageListItem } from "@mui/material";
 import { getPhotoUrl } from "../helpers/GetRestaurantPhotoUrl";
 import Button from '@mui/material/Button';
@@ -113,8 +114,17 @@ export default function SingleResult(props) {
           <h3>Popular Dish </h3>
           <h3>Popular Vegan/Vegetarian/Gluten-Free Dish</h3>
         </Item>
+        <Item>        
+        {selectedRestaurant.price_level === 1 && <h3> Rating: {selectedRestaurant.ave_rating} <Rating name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly />
+        {selectedRestaurant.user_ratings_total} Reviews - $</h3>}
+        {selectedRestaurant.price_level === 2 && <h3>Rating: {selectedRestaurant.ave_rating} <Rating name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly />
+        {selectedRestaurant.user_ratings_total} Reviews - $$</h3>}
+        {selectedRestaurant.price_level === 3 && <h3>Rating: {selectedRestaurant.ave_rating} <Rating name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly />
+        {selectedRestaurant.user_ratings_total} Reviews - $$$</h3>}
+        {selectedRestaurant.price_level === 4 && <h3>Rating: {selectedRestaurant.ave_rating} <Rating name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly />
+        {selectedRestaurant.user_ratings_total} Reviews - $$$$</h3>}
+        </Item>
         <Item>
-          <h3>Rating: {selectedRestaurant.ave_rating}</h3>
           <h3>Business Hours:</h3>
           <h4> {selectedRestaurant.business_hours}</h4>
           <h3>Contact Information:</h3>
