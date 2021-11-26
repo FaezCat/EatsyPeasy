@@ -49,7 +49,7 @@ export default function QuestionThree(props) {
       </ToggleButtonGroup>
       <Button variant="contained" onClick={() => {
         props.clickHandler(pricePoint); 
-        props.setResults(true);
+        //props.setResults(true);
         // setTimeout(()=> {
           navigate("/results");
         // }, 3000)
