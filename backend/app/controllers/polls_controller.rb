@@ -23,7 +23,7 @@ class PollsController < ApplicationController
     @poll = Poll.find_by(alpha_numeric_id: params[:alpha_numeric_id])
     # if poll
       #knowing which one was voted for, need to update corresponding vote count by 1
-      restVote = params[:vote]
+      restVote = params[:vote] #restaurant_{number}_votes
       puts @poll
       @poll.increment!(restVote.to_sym,1)
       user = User.create(name: params[:name], poll_id: poll[:id], restaurant_choice: params[:vote])
