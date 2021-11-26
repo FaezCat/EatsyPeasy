@@ -13,9 +13,14 @@ import {
   createRestaurantObjs,
   addDetailsToRestaurantObjs,
 } from "./helpers/CreateRestaurantObjs";
+import PollingPage from "./components/PollingPage";
 import PollingResults from "./components/PollingResults";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+
+  const navigate = useNavigate();
+
   const [answers, setAnswers] = useState({
     answerOne: "",
     answerTwo: [],
@@ -51,14 +56,23 @@ function App() {
         .get(url, { params })
         .then(function (response) {
           const createdRestObjs = createRestaurantObjs(response);
+          console.log("initial objs from first call:", createdRestObjs);
           return createdRestObjs;
         })
         .then((createdRestObjs) => {
           const updatedObjs = addDetailsToRestaurantObjs(createdRestObjs);
+          console.log("updated objs 2nd call:", updatedObjs);
           return updatedObjs;
         })
         .then(function (updatedObjs) {
+          console.log(
+            "the .then updated objs before state update:",
+            updatedObjs
+          );
           setRestaurantObjs(updatedObjs);
+        })
+        .then(()=>{
+          navigate("/results");
         })
         .catch(function (error) {
           console.log(error);
@@ -67,7 +81,6 @@ function App() {
   }, [results]);
 
   return (
-    <Router>
       <div className="background">
         <Nav />
         <Routes>
@@ -94,14 +107,11 @@ function App() {
             path="/results"
             element={<Results itemData={restaurantObjs} />}
           />
-          <Route
-            path="/linkpage"
-            element={<LinkPage />}
-          />
-          <Route path="/pollResults" element={<PollingResults />} />
+          <Route path="/linkpage" element={<LinkPage />} />
+          <Route path="/poll/:alpha_numeric_id/results" element={<PollingResults />} />
+          <Route path="/poll/:alpha_numeric_id" element={<PollingPage />} />
         </Routes>
       </div>
-    </Router>
   );
 }
 export default App;

@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211123224417) do
+ActiveRecord::Schema.define(version: 20211124190855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "polls", force: :cascade do |t|
     t.string   "restaurant_1_name"
@@ -38,6 +44,9 @@ ActiveRecord::Schema.define(version: 20211123224417) do
     t.string   "alpha_numeric_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "restaurant_1_place_id"
+    t.string   "restaurant_2_place_id"
+    t.string   "restaurant_3_place_id"
   end
 
   create_table "users", force: :cascade do |t|
