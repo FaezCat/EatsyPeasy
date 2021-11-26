@@ -99,7 +99,6 @@ export default function PollingResults(props) {
     maintainAspectRatio: false
   };
 
-  // this is where we actually call the useInterval custom hook
 return(
   <Fragment>
     {winningRestaurant && <div>
