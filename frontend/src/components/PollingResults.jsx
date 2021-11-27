@@ -35,6 +35,7 @@ export default function PollingResults(props) {
   })
   .then ((pollData)=> {
     const topRestaurant = getWinningRestaurant(pollData);
+    console.log(topRestaurant);
     setWinningRestaurant(topRestaurant);
   })
   .catch(function (error) {
@@ -109,6 +110,7 @@ return(
       <h3>Business Hours:</h3>
       <h4>{winningRestaurant.business_hours}</h4>
       <h3>Contact Information:</h3>
+      <h4><a href={winningRestaurant.website} target="_blank">Website</a></h4>
       <h4>{winningRestaurant.phone_number}</h4>
       <h3>Directions:</h3>
       <h4><a href={winningRestaurant.maps_directions} target="_blank"><img src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="75" height="75"/></a></h4>
