@@ -54,6 +54,7 @@ export default function PollingPage(props) {
         {selectedRestaurants[1] && <SingleResult itemData={""} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
         {selectedRestaurants[2] && <SingleResult itemData={""} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
       </div>
+         
       <Box
         component="form"
         sx={{'& .MuiTextField-root': { m: 1, width: '25ch' }}}
@@ -62,6 +63,7 @@ export default function PollingPage(props) {
         padding={5}
         >
         <h3>Click one of the choices above that you are craving!</h3>
+  
         {<TextField 
           value={userName} 
           onChange={(event) => setUserName(event.target.value)} 

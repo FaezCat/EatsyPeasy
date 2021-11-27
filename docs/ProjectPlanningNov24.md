@@ -19,13 +19,12 @@ Goals for Friday:
   [X] Voting routing, front to back-end (when users vote)
   [X] Users table updating
   [X] Favicon
-
-[X] FC- add setInterval for PollingResults page
-[X] CW- Single Results - "Reviews box": Add number ratings, "stars" visual appearance, $$ price point
-[X] FC- Single Results: Add the address of the place, make "maps directions" a clickable link into a new tab
-[X] CL- Polling page: Add an error if user does not enter their name
-[X] CL- Change "tab" title to say Eatsy Peasy
-CL- Add a footer (about us, contact info)
+  [X] FC- add setInterval for PollingResults page
+  [X] CW- Single Results - "Reviews box": Add number ratings, "stars" visual appearance, $$ price point
+  [X] FC- Single Results: Add the address of the place, make "maps directions" a clickable link into a new tab
+  [X] CL- Polling page: Add an error if user does not enter their name
+  [X] CL- Change "tab" title to say Eatsy Peasy
+  [X] CL- Add a footer (about us, contact info)
 
 FC- Menu API functionality or other API to bring in functionality (timeblock: 1hr to find a feasible solution)
 FC- Add spinners/loaders between pages that take a long time to load. Use this: https://mui.com/components/progress/#LinearIndeterminate.js
