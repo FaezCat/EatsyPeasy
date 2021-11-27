@@ -32,9 +32,11 @@ function updateRestaurantObj(restaurant, placeDetails) {
   // new keys
   restaurant.restaurant_name = placeDetails.name;
   restaurant.ave_rating = placeDetails.rating;
-  restaurant.total_ratings = placeDetails.user_ratings_total;
   restaurant.restaurant_photo_ref = placeDetails.photos[0].photo_reference;
   restaurant.restaurant_photo_width = placeDetails.photos[0].width;
+  restaurant.formatted_address = placeDetails.formatted_address;
+  restaurant.user_ratings_total = placeDetails.user_ratings_total;
+  restaurant.price_level = placeDetails.price_level;
 
   // console.log("updated restaurant obj:", restaurant);
   return restaurant;
