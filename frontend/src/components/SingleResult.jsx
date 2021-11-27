@@ -8,11 +8,13 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Rating from '@mui/material/Rating';
 import { ImageListItem } from "@mui/material";
 import { getPhotoUrl } from "../helpers/GetRestaurantPhotoUrl";
 import Button from '@mui/material/Button';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {getPriceIcon} from "../helpers/getPriceIcon";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -70,6 +72,7 @@ export default function SingleResult(props) {
     }
   }, [pollVote])
 
+
   return (
     <div className="column">
       <Stack
@@ -113,8 +116,11 @@ export default function SingleResult(props) {
           <h3>Popular Dish </h3>
           <h3>Popular Vegan/Vegetarian/Gluten-Free Dish</h3>
         </Item>
+        <Item>        
+        <h3> Rating: {selectedRestaurant.ave_rating} <Rating style={{ position: "relative" }} name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly />
+        {selectedRestaurant.user_ratings_total} Reviews - {getPriceIcon(selectedRestaurant.price_level)}</h3>
+        </Item>
         <Item>
-          <h3>Rating: {selectedRestaurant.ave_rating}</h3>
           <h3>Business Hours:</h3>
           <h4> {selectedRestaurant.business_hours}</h4>
           <h3>Contact Information:</h3>
