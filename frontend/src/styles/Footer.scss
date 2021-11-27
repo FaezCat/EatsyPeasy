@@ -1,0 +1,31 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  background-color:orange;
+  color: white;
+  padding: 10px;
+
+  div {
+    margin-right: 20px;
+    color: black;
+  }
+
+  p {
+    margin: 10px 15px 10px 10px;
+  }
+
+  a {
+    margin: 10px 5px 10px 5px;
+  }
+  
+  .copyright {
+    position: fixed;
+    right: 0;
+    color: black;
+  }
+}
+

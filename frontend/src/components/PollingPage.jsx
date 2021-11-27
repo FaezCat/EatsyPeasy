@@ -1,7 +1,8 @@
 import { Fragment, useState, useEffect } from "react";
 import SingleResult from "./SingleResult";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { organizePollJSON } from "../helpers/organizePollJSON";
 import { addDetailsToRestaurantObjs } from "../helpers/CreateRestaurantObjs";
@@ -12,13 +13,8 @@ export default function PollingPage(props) {
 
   const navigate = useNavigate();
 
-  console.log("alpha num id", alpha_numeric_id);
-
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
   const [userName, setUserName] = useState("");
-  
-  // console.log("itemData", props.itemData)
-  // console.log("selectedRestaurants", selectedRestaurants)
   
   useEffect(() => {
     
@@ -44,8 +40,6 @@ export default function PollingPage(props) {
     });
   }, [])
 
-  // let userName = "";
-
   return (
     <Fragment>
       <div className="page-number-display">
@@ -57,15 +51,25 @@ export default function PollingPage(props) {
         {selectedRestaurants[1] && <SingleResult itemData={""} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
         {selectedRestaurants[2] && <SingleResult itemData={""} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
       </div>
-      <h3>Pick one of the choices above that you are craving!</h3>
-      <TextField 
-        value={userName} 
-        onChange={(event) => setUserName(event.target.value)} 
-        InputLabelProps={{style: {fontFamily: 'Quicksand, sans-serif'}}} 
-        fullWidth id="input-with-sx" 
-        label="Identify yourself :)"
-        />
-
+      <h3>Click one of the choices above that you are craving!</h3>
+      <Box
+        component="form"
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '25ch' },
+        }}
+        autoComplete="off"
+      >
+        {<TextField 
+          value={userName} 
+          onChange={(event) => setUserName(event.target.value)} 
+          InputLabelProps={{style: {fontFamily: 'Quicksand, sans-serif'}}} 
+          fullWidth id="input-with-sx" 
+          label="Identify Yourself :)"
+          variant="outlined"
+          error={userName === ""}
+          helperText={userName === "" ? 'Name is required' : ' '}
+          />}
+      </Box>
     </Fragment>
  )
 }
