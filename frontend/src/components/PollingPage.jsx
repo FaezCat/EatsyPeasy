@@ -49,7 +49,7 @@ export default function PollingPage(props) {
       <div className="polling-page-title">
         <h1>Your Restaurant Selections</h1>
       </div>
-      <div>
+      <div className="single-result-stacks">
         {selectedRestaurants[0] && <SingleResult itemData={""} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
         {selectedRestaurants[1] && <SingleResult itemData={""} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
         {selectedRestaurants[2] && <SingleResult itemData={""} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
