@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { organizePollJSON } from "../helpers/organizePollJSON";
 import { addDetailsToRestaurantObjs } from "../helpers/CreateRestaurantObjs";
+import LinearIndeterminate from "./LoadingBar";
 
 export default function PollingPage(props) {
 
@@ -45,14 +46,15 @@ export default function PollingPage(props) {
       <div className="page-number-display">
         4 of 4
       </div>
-      <h1>Your Customized Selections</h1>
+      {selectedRestaurants.length > 0 && <h1>Which restaurant do you like best?</h1>}
       <div>
         {selectedRestaurants[0] && <SingleResult itemData={""} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
         {selectedRestaurants[1] && <SingleResult itemData={""} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
         {selectedRestaurants[2] && <SingleResult itemData={""} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
+        {selectedRestaurants.length === 0 && <LinearIndeterminate />}
       </div>
-      <h3>Click one of the choices above that you are craving!</h3>
-      <Box
+      {selectedRestaurants.length > 0 && <h3>Pick your craving!</h3>}
+      {selectedRestaurants.length > 0 && <Box
         component="form"
         sx={{
           '& .MuiTextField-root': { m: 1, width: '25ch' },
@@ -69,7 +71,7 @@ export default function PollingPage(props) {
           error={userName === ""}
           helperText={userName === "" ? 'Name is required' : ' '}
           />}
-      </Box>
+      </Box>}
     </Fragment>
  )
 }

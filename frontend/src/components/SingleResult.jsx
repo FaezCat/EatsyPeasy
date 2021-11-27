@@ -15,6 +15,7 @@ import Button from '@mui/material/Button';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {getPriceIcon} from "../helpers/getPriceIcon";
+import ImageList from '@mui/material/ImageList';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -51,7 +52,7 @@ export default function SingleResult(props) {
       console.log("pollVote is a place_id:", pollVote);
       axios({
         method: 'post',
-        url: 'http://localhost:3000/polls/update', //make sure to point this to backend
+        url: 'http://localhost:3000/polls/update',
         data: {
           place_id: selectedRestaurant.place_id,
           vote: `restaurant_${defaultValue+1}_votes`,
@@ -104,12 +105,14 @@ export default function SingleResult(props) {
           </FormControl>
         </Box>
       }
+        <ImageList className="image-list" sx={{ width: 600, height: 300 }}>
           <ImageListItem key={props.defaultValue.restaurant_name}>
             <img
               src={imageUrl}
-              alt={`temp`}
+              alt={`restaurant`}
               />
           </ImageListItem>
+        </ImageList>
         </Item>
         <Item>
           <h3>Menu</h3>
@@ -127,7 +130,7 @@ export default function SingleResult(props) {
           <h4>{selectedRestaurant.phone_number}</h4>
           <h3>Directions:</h3>
           <h4>{selectedRestaurant.formatted_address}</h4>
-          <h4><a href={selectedRestaurant.maps_directions} target="_blank"><img src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="100" height="100"/></a></h4>
+          <h4><a href={selectedRestaurant.maps_directions} target="_blank"><img src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="75" height="75"/></a></h4>
         </Item>
 
         {(parentComponent === "PollingPage") && 

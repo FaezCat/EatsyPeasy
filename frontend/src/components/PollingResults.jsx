@@ -47,13 +47,13 @@ export default function PollingResults(props) {
   }, [])
   
   // useInterval custom hook - refreshes our data via fresh API calls without causing memory leaks
-  useInterval(pollApiCall, 5000)
+  useInterval(pollApiCall, 3000)
   
   const data = {
     labels: [ pollData.restaurant_1_name, pollData.restaurant_2_name, pollData.restaurant_3_name],
     datasets: [
       {
-        label: '# of Votes',
+        label: 'Votes',
         data: [pollData.restaurant_1_votes, pollData.restaurant_2_votes, pollData.restaurant_3_votes],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -111,7 +111,7 @@ return(
       <h3>Contact Information:</h3>
       <h4>{winningRestaurant.phone_number}</h4>
       <h3>Directions:</h3>
-      <h4>{winningRestaurant.maps_directions}</h4>
+      <h4><a href={winningRestaurant.maps_directions} target="_blank"><img src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="75" height="75"/></a></h4>
     </Item>   }
   </Fragment>
 );  

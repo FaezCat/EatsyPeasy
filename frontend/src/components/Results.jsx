@@ -9,6 +9,7 @@ import {
   createRestaurantObjs,
   addDetailsToRestaurantObjs,
 } from "../helpers/CreateRestaurantObjs";
+import LinearIndeterminate from "./LoadingBar";
 
 export default function Results(props) {
 
@@ -119,21 +120,22 @@ export default function Results(props) {
       <div className="page-number-display">
         4 of 4
       </div>
-      <h1>Your Customized Selections</h1>
+      {selectedRestaurants.length > 0 && <h1>Your Customized Selections</h1>}
       <div>
         {(itemData[0] && selectedRestaurants.length > 0) && <SingleResult itemData={itemData} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
         {(itemData[1] && selectedRestaurants.length > 0) &&  <SingleResult itemData={itemData} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
         {(itemData[2] && selectedRestaurants.length > 0) && <SingleResult itemData={itemData} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
+        {selectedRestaurants.length === 0 && <LinearIndeterminate />}
       </div>
-      <h3>Need some input? Generate a poll to share with your friends!</h3>
+      {selectedRestaurants.length > 0 && <h3>Need some input? Generate a poll to share with your friends!</h3>}
       
-      <Button 
+      {selectedRestaurants.length > 0 && <Button 
           style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
           onClick={() => {
             const pollObj = createPoll(selectedRestaurants);
             setPoll(pollObj); //trigger to do POST request
           }}>Generate Poll
-      </Button>
+      </Button>}
     </Fragment>
  )
 }

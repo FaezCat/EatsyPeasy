@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react"
 import {Button, ToggleButton, ToggleButtonGroup} from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import CircularProgress from '@mui/material/CircularProgress';
 
 export default function QuestionThree(props) {
   const navigate = useNavigate();
