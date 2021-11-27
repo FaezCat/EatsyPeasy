@@ -6,7 +6,7 @@ import { Fragment } from 'react';
 import { getWinningRestaurant } from '../helpers/getWinningRestaurant';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-
+import useInterval from '../hooks/useInterval';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -23,29 +23,32 @@ export default function PollingResults(props) {
   const [usersData, setUsersData] = useState(false);
   const [winningRestaurant, setWinningRestaurant] = useState(false);
 
+  // function used to make API calls in order to dynamically update our components
+  const pollApiCall = () => axios({
+    method: 'get', //need to update this to GET the 3 rest objs to populate this page
+    url: `http://localhost:3000/polls/show/${alpha_numeric_id}/results`, //make sure to point this to backend
+  })
+  .then(function (response) {
+    setPollData(response.data.poll);
+    setUsersData(response.data.users);
+    return response.data.poll;
+  })
+  .then ((pollData)=> {
+    const topRestaurant = getWinningRestaurant(pollData);
+    setWinningRestaurant(topRestaurant);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  
+  // this useEffect fetches our first batch of data before the refreshes below
   useEffect(() => {
-    
-    axios({
-      method: 'get', //need to update this to GET the 3 rest objs to populate this page
-      url: `http://localhost:3000/polls/show/${alpha_numeric_id}/results`, //make sure to point this to backend
-    })
-    .then(function (response) {
-      console.log("should be the returned 1 poll:", response);
-      setPollData(response.data.poll);
-      setUsersData(response.data.users);
-
-      return response.data.poll;
-    })
-    .then ((pollData)=> {
-      const topRestaurant = getWinningRestaurant(pollData);
-      setWinningRestaurant(topRestaurant);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    pollApiCall();
   }, [])
   
-
+  // useInterval custom hook - refreshes our data via fresh API calls without causing memory leaks
+  useInterval(pollApiCall, 5000)
+  
   const data = {
     labels: [ pollData.restaurant_1_name, pollData.restaurant_2_name, pollData.restaurant_3_name],
     datasets: [
