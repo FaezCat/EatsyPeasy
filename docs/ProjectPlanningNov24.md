@@ -20,15 +20,9 @@ Goals for Friday:
   [X] Users table updating
   [X] Favicon
 
-<<<<<<< HEAD
-FC- add setInterval for PollingResults page
-CW- Single Results - "Reviews box": Add number ratings, "stars" visual appearance, $$ price point
-FC- Single Results: Add the address of the place, make "maps directions" a clickable link into a new tab
-=======
 [X] FC- add setInterval for PollingResults page
 [X] CW- Single Results - "Reviews box": Add number ratings, "stars" visual appearance, $$ price point
 [X] FC- Single Results: Add the address of the place, make "maps directions" a clickable link into a new tab
->>>>>>> main
 [X] CL- Polling page: Add an error if user does not enter their name
 [X] CL- Change "tab" title to say Eatsy Peasy
 CL- Add a footer (about us, contact info)
