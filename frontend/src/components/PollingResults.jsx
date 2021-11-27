@@ -29,13 +29,14 @@ export default function PollingResults(props) {
     url: `http://localhost:3000/polls/show/${alpha_numeric_id}/results`, //make sure to point this to backend
   })
   .then(function (response) {
+    console.log("response:", response.data.poll)
     setPollData(response.data.poll);
     setUsersData(response.data.users);
     return response.data.poll;
   })
   .then ((pollData)=> {
     const topRestaurant = getWinningRestaurant(pollData);
-    console.log(topRestaurant);
+    console.log("toprestaurant obj:", topRestaurant);
     setWinningRestaurant(topRestaurant);
   })
   .catch(function (error) {
@@ -56,6 +57,11 @@ export default function PollingResults(props) {
       {
         label: 'Votes',
         data: [pollData.restaurant_1_votes, pollData.restaurant_2_votes, pollData.restaurant_3_votes],
+        options: {
+            legend: {
+              display: false,
+            },
+        },
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',

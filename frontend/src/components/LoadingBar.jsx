@@ -5,8 +5,10 @@ import "../styles/LoadingBar.scss";
 
 export default function LinearIndeterminate() {
   return (
-    <Box className="loading-bar" sx={{ width: '100%' }}>
-      <LinearProgress />
-    </Box>
+    <div className="loading-bar">
+      <Box sx={{ width: '50%' }}>
+        <LinearProgress />
+      </Box>
+    </div>
   );
 }

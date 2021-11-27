@@ -105,14 +105,16 @@ export default function SingleResult(props) {
           </FormControl>
         </Box>
       }
-        <ImageList className="image-list" sx={{ width: 600, height: 300 }}>
+        <img src={imageUrl} alt={"restaurant"} className="restaurant-image" />
+        
+        {/* <ImageList justifycontent="center" sx={{ width: 600, height: 300 }}>
           <ImageListItem key={props.defaultValue.restaurant_name}>
             <img
               src={imageUrl}
               alt={`restaurant`}
               />
           </ImageListItem>
-        </ImageList>
+        </ImageList> */}
         </Item>
         <Item>
           <h3>Menu</h3>

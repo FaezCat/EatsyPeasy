@@ -105,7 +105,7 @@ export default function Results(props) {
       poll[restPlaceID] = selectedRestaurants[i].place_id;
       poll[restName] = selectedRestaurants[i].restaurant_name;
       poll[restVotes] = 0;
-      poll[restHours] = selectedRestaurants[i].business_hours;
+      poll[restHours] = JSON.stringify(selectedRestaurants[i].business_hours);
       poll[restNumber] = selectedRestaurants[i].phone_number;
       poll[restWebsite] = selectedRestaurants[i].website; 
       poll[restMaps] = selectedRestaurants[i].maps_directions;
