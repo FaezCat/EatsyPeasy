@@ -9,6 +9,7 @@ import {
   createRestaurantObjs,
   addDetailsToRestaurantObjs,
 } from "../helpers/CreateRestaurantObjs";
+import LinearIndeterminate from "./LoadingBar";
 import "../styles/Results.scss";
 import Box from '@mui/material/Box';
 
@@ -99,7 +100,7 @@ export default function Results(props) {
       poll[restPlaceID] = selectedRestaurants[i].place_id;
       poll[restName] = selectedRestaurants[i].restaurant_name;
       poll[restVotes] = 0;
-      poll[restHours] = selectedRestaurants[i].business_hours;
+      poll[restHours] = JSON.stringify(selectedRestaurants[i].business_hours);
       poll[restNumber] = selectedRestaurants[i].phone_number;
       poll[restWebsite] = selectedRestaurants[i].website; 
       poll[restMaps] = selectedRestaurants[i].maps_directions;
@@ -115,14 +116,16 @@ export default function Results(props) {
         4 of 4
       </div>
       <div className="results-title">
-        <h1>Your Customized Selections</h1>
+        {selectedRestaurants.length > 0 && <h1>Your Customized Selections</h1>}
       </div>
       <div className="single-result-stacks">
         {(itemData[0] && selectedRestaurants.length > 0) && <SingleResult itemData={itemData} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
         {(itemData[1] && selectedRestaurants.length > 0) &&  <SingleResult itemData={itemData} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
         {(itemData[2] && selectedRestaurants.length > 0) && <SingleResult itemData={itemData} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
+        {selectedRestaurants.length === 0 && <LinearIndeterminate />}
       </div>
-       <Box textAlign='center' padding={5}>
+
+       {selectedRestaurants.length > 0 && <Box textAlign='center' padding={5}>
         <h3>Need some input? Generate a poll to share with your friends!</h3>
         <Button 
             style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
@@ -131,7 +134,7 @@ export default function Results(props) {
               setPoll(pollObj); //trigger to do POST request
             }}>Generate Poll
         </Button>
-      </Box>
+      </Box>}
     </Fragment>
  )
 }

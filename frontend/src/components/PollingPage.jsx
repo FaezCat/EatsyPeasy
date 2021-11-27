@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { organizePollJSON } from "../helpers/organizePollJSON";
 import { addDetailsToRestaurantObjs } from "../helpers/CreateRestaurantObjs";
+import LinearIndeterminate from "./LoadingBar";
 import "../styles/PollingPage.scss";
 
 export default function PollingPage(props) {
@@ -47,22 +48,23 @@ export default function PollingPage(props) {
         4 of 4
       </div>
       <div className="polling-page-title">
-        <h1>Your Restaurant Selections</h1>
+        {selectedRestaurants.length > 0 && <h1>Your Restaurant Selections</h1>}
       </div>
       <div className="single-result-stacks">
         {selectedRestaurants[0] && <SingleResult itemData={""} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
         {selectedRestaurants[1] && <SingleResult itemData={""} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
         {selectedRestaurants[2] && <SingleResult itemData={""} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
+        {selectedRestaurants.length === 0 && <LinearIndeterminate />}
       </div>
          
-      <Box
+      {selectedRestaurants.length > 0 && <Box
         component="form"
         sx={{'& .MuiTextField-root': { m: 1, width: '25ch' }}}
         autoComplete="off"
         textAlign='center' 
         padding={5}
         >
-        <h3>Click one of the choices above that you are craving!</h3>
+        {selectedRestaurants.length > 0 && <h3>Click one of the choices above that you are craving!</h3>}
   
         {<TextField 
           value={userName} 
@@ -74,7 +76,7 @@ export default function PollingPage(props) {
           error={userName === ""}
           helperText={userName === "" ? 'Name is required' : ' '}
           />}
-      </Box>
+      </Box>}
     </Fragment>
  )
 }
