@@ -14,6 +14,7 @@ import { getPhotoUrl } from "../helpers/GetRestaurantPhotoUrl";
 import Button from '@mui/material/Button';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {getPriceIcon} from "../helpers/getPriceIcon";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -71,6 +72,7 @@ export default function SingleResult(props) {
     }
   }, [pollVote])
 
+
   return (
     <div className="column">
       <Stack
@@ -115,14 +117,8 @@ export default function SingleResult(props) {
           <h3>Popular Vegan/Vegetarian/Gluten-Free Dish</h3>
         </Item>
         <Item>        
-        {selectedRestaurant.price_level === 1 && <h3> Rating: {selectedRestaurant.ave_rating} <Rating name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly />
-        {selectedRestaurant.user_ratings_total} Reviews - $</h3>}
-        {selectedRestaurant.price_level === 2 && <h3>Rating: {selectedRestaurant.ave_rating} <Rating name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly />
-        {selectedRestaurant.user_ratings_total} Reviews - $$</h3>}
-        {selectedRestaurant.price_level === 3 && <h3>Rating: {selectedRestaurant.ave_rating} <Rating name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly />
-        {selectedRestaurant.user_ratings_total} Reviews - $$$</h3>}
-        {selectedRestaurant.price_level === 4 && <h3>Rating: {selectedRestaurant.ave_rating} <Rating name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly />
-        {selectedRestaurant.user_ratings_total} Reviews - $$$$</h3>}
+        <h3> Rating: {selectedRestaurant.ave_rating} <Rating style={{ position: "relative" }} name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly />
+        {selectedRestaurant.user_ratings_total} Reviews - {getPriceIcon(selectedRestaurant.price_level)}</h3>
         </Item>
         <Item>
           <h3>Business Hours:</h3>
