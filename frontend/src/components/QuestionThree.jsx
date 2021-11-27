@@ -22,7 +22,6 @@ export default function QuestionThree(props) {
       </div>
       <h2 className="q3-question">How much are you willing to spend?</h2>
       <h3 className="q3-question-subtext">Pick one or multiple options</h3>
-
       <ToggleButtonGroup
       value={pricePoint}
       onChange={handlePrice}
@@ -31,11 +30,12 @@ export default function QuestionThree(props) {
       color={'success'}
       >
       <ToggleButton value={1}
-      style={{border: 'transparent'}}>
+      style={{fontFamily: 'Quicksand, sans-serif', border: 'transparent'}}>
         <div>
         <AttachMoneyIcon 
               style={{ fill: '#0198E1' , margin: '0 0 0 0'}} 
               sx={{ color: 'action.active', mr: 1, my: 1, fontSize: 60}} /> <br/>
+        <Fragment>
         less than $10
         </div>
       </ToggleButton>
@@ -86,13 +86,11 @@ export default function QuestionThree(props) {
       </ToggleButton>
       </ToggleButtonGroup>
 
-      <Button
-        style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
-        onClick={() => {props.clickHandler(pricePoint); navigate("/results");}}>Next
-      </Button>
-
+      <Button style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" onClick={() => {
+        props.clickHandler(pricePoint); 
+        navigate("/results");
+      }}>Next</Button>
     </div>}
-
     </Fragment>
   );
 }

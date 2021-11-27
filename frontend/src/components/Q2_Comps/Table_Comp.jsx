@@ -28,7 +28,7 @@ export default function DenseTable(props) {
       <Table sx={{ maxWidth: 300 }} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell align="center" colSpan={2}>Food Category</TableCell>
+            <TableCell style={{fontFamily: 'Quicksand, sans-serif'}} align="center" colSpan={2}>Food Category</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -37,7 +37,7 @@ export default function DenseTable(props) {
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell align="center" component="th" scope="row">
+              <TableCell style={{fontFamily: 'Quicksand, sans-serif'}} align="center" component="th" scope="row">
                 {row.name} 
               </TableCell>
               <TableCell align="center">{row.deleteRow}</TableCell>
