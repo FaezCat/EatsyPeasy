@@ -117,8 +117,7 @@ export default function SingleResult(props) {
           <h3>Popular Vegan/Vegetarian/Gluten-Free Dish</h3>
         </Item>
         <Item>        
-        <h3> Rating: {selectedRestaurant.ave_rating} <Rating style={{ position: "relative" }} name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly />
-        {selectedRestaurant.user_ratings_total} Reviews - {getPriceIcon(selectedRestaurant.price_level)}</h3>
+        <h3> Rating: {selectedRestaurant.ave_rating} - <Rating className="rating" name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly /> - {selectedRestaurant.user_ratings_total} Reviews - {getPriceIcon(selectedRestaurant.price_level)}</h3>
         </Item>
         <Item>
           <h3>Business Hours:</h3>
