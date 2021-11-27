@@ -20,16 +20,25 @@ Goals for Friday:
   [X] Users table updating
   [X] Favicon
 
-FC- add setInterval for PollingResults page
-CW- Single Results - "Reviews box": Add number ratings, "stars" visual appearance, $$ price point
-FC- Single Results: Add the address of the place, make "maps directions" a clickable link into a new tab
-CL- Polling page: Add an error if user does not enter their name
-CL- Change "tab" title to say Eatsy Peasy
+[X] FC- add setInterval for PollingResults page
+[X] CW- Single Results - "Reviews box": Add number ratings, "stars" visual appearance, $$ price point
+[X] FC- Single Results: Add the address of the place, make "maps directions" a clickable link into a new tab
+[X] CL- Polling page: Add an error if user does not enter their name
+[X] CL- Change "tab" title to say Eatsy Peasy
 CL- Add a footer (about us, contact info)
 
-Everyone- Menu API functionality or other API to bring in functionality (timeblock: 1hr to find a feasible solution)
-
-- CSS overall
+FC- Menu API functionality or other API to bring in functionality (timeblock: 1hr to find a feasible solution)
+FC- Add spinners/loaders between pages that take a long time to load. Use this: https://mui.com/components/progress/#LinearIndeterminate.js
+  - FC-single results: image sizing
+  - FC-Pollingresults: add website. White box should have some padding. Maps directions icon fix. Remove legend.
+  - CL-fix yellow background height cutoff
+  - CL-Q2: match fonts to Q1. Match button styling too.
+  - CL-Q3: match fonts and button.
+  - CL-results: make sure texts shows up in column (bottom of stack of single results)
+  - CL-Pollingpage: style the input Name text box.
+  - CW-Q3: Fix toggle button styling. Try to use dollar sign image or icon. Change 'select' button to dark orange.
+  - CW-single results: other various styling, add website.
+  - CW-Linkpage: center the items. Clipboard icon next to link. Possible text box so user can copy the link themselves.
 
 Goals for weekend:
 
