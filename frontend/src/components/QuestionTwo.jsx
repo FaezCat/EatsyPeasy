@@ -76,7 +76,7 @@ export default function QuestionTwo(props) {
           {choices.length > 0 && <DenseTable foodCategories={choices} deleteFoodCategory={removeChoice}/>}
           <CheckboxesGroup onCheck={addDietaryPref} onUncheck={removeDietaryPref}/>
         </div>
-      <Button variant="contained" onClick={
+      <Button style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" onClick={
         () => {
           props.clickHandler(finalQuestionTwoState(choices, dietaryPrefs)); 
           navigate('/questionthree'); 

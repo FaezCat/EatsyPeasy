@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { organizePollJSON } from "../helpers/organizePollJSON";
 import { addDetailsToRestaurantObjs } from "../helpers/CreateRestaurantObjs";
+import "../styles/PollingPage.scss";
 
 export default function PollingPage(props) {
 
@@ -45,20 +46,22 @@ export default function PollingPage(props) {
       <div className="page-number-display">
         4 of 4
       </div>
-      <h1>Your Customized Selections</h1>
+      <div className="polling-page-title">
+        <h1>Your Restaurant Selections</h1>
+      </div>
       <div>
         {selectedRestaurants[0] && <SingleResult itemData={""} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
         {selectedRestaurants[1] && <SingleResult itemData={""} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
         {selectedRestaurants[2] && <SingleResult itemData={""} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="PollingPage" userName= {userName} alpha_numeric_id={alpha_numeric_id}/>}
       </div>
-      <h3>Click one of the choices above that you are craving!</h3>
       <Box
         component="form"
-        sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-        }}
+        sx={{'& .MuiTextField-root': { m: 1, width: '25ch' }}}
         autoComplete="off"
-      >
+        textAlign='center' 
+        padding={5}
+        >
+        <h3>Click one of the choices above that you are craving!</h3>
         {<TextField 
           value={userName} 
           onChange={(event) => setUserName(event.target.value)} 

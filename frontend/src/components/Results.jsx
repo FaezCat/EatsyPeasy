@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
 import SingleResult from "./SingleResult";
 import Button from '@mui/material/Button';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import generateRandomString from "../helpers/UniqueLink";
 import axios from "axios";
 import { getPrice, getQuery } from "../helpers/GooglePlacesAPIFunctions";
@@ -9,19 +9,16 @@ import {
   createRestaurantObjs,
   addDetailsToRestaurantObjs,
 } from "../helpers/CreateRestaurantObjs";
+import "../styles/Results.scss";
+import Box from '@mui/material/Box';
 
 export default function Results(props) {
 
   const navigate = useNavigate();
 
-  // const [selectedRestaurants, setSelectedRestaurants] = useState([props.itemData[0], props.itemData[1], props.itemData[2]]);
-  
   const [itemData, setItemData] = useState([]);
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
 
-  // console.log(props.answers)
-  // console.log("itemData", props.itemData)
-  // console.log("selectedRestaurants", selectedRestaurants)
   useEffect(() => {
       const range = getPrice(props.answers.answerThree);
       const query = getQuery(props.answers.answerOne, props.answers.answerTwo);
@@ -65,8 +62,6 @@ export default function Results(props) {
   }, []);
 
   const [poll, setPoll] = useState(null); //poll should be one object matching the ERD later
-
-  //let pollObj = null;
 
   useEffect(() => {
     if (poll) {
@@ -119,21 +114,24 @@ export default function Results(props) {
       <div className="page-number-display">
         4 of 4
       </div>
-      <h1>Your Customized Selections</h1>
-      <div>
+      <div className="results-title">
+        <h1>Your Customized Selections</h1>
+      </div>
+      <div className="single-result-stacks">
         {(itemData[0] && selectedRestaurants.length > 0) && <SingleResult itemData={itemData} defaultValue={0} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
         {(itemData[1] && selectedRestaurants.length > 0) &&  <SingleResult itemData={itemData} defaultValue={1} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
         {(itemData[2] && selectedRestaurants.length > 0) && <SingleResult itemData={itemData} defaultValue={2} selectedRestaurants={selectedRestaurants} setSelectedRestaurants={setSelectedRestaurants} parentComponent="Results"/>}
       </div>
-      <h3>Need some input? Generate a poll to share with your friends!</h3>
-      
-      <Button 
-          style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
-          onClick={() => {
-            const pollObj = createPoll(selectedRestaurants);
-            setPoll(pollObj); //trigger to do POST request
-          }}>Generate Poll
-      </Button>
+       <Box textAlign='center' padding={5}>
+        <h3>Need some input? Generate a poll to share with your friends!</h3>
+        <Button 
+            style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
+            onClick={() => {
+              const pollObj = createPoll(selectedRestaurants);
+              setPoll(pollObj); //trigger to do POST request
+            }}>Generate Poll
+        </Button>
+      </Box>
     </Fragment>
  )
 }

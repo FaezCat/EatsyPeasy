@@ -50,25 +50,25 @@ export default function CheckboxesGroup(props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
-        <FormLabel component="legend">Dietary Preferences</FormLabel>
-        <FormGroup>
+        <FormLabel style={{fontFamily: 'Quicksand, sans-serif'}} component="legend">Dietary Preferences</FormLabel>
+        <FormGroup >
           <FormControlLabel
             control={
               <Checkbox checked={vegan} onChange={handleChange} name="vegan" />
             }
-            label="Vegan Options"
+            label={<div style={{ fontFamily: 'Quicksand, sans-serif' }}>{"Vegan Options"}</div>}
           />
           <FormControlLabel
             control={
               <Checkbox checked={vegetarian} onChange={handleChange} name="vegetarian" />
             }
-            label="Vegetarian Options"
+            label={<div style={{ fontFamily: 'Quicksand, sans-serif' }}>{"Vegetarian Options"}</div>}
           />
           <FormControlLabel
             control={
               <Checkbox checked={glutenFree} onChange={handleChange} name="glutenFree" />
             }
-            label="Gluten-Free Options"
+            label={<div style={{ fontFamily: 'Quicksand, sans-serif' }}>{"Gluten-Free Options"}</div>}
           />
         </FormGroup>
       </FormControl>
