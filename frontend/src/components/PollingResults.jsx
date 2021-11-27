@@ -7,6 +7,7 @@ import { getWinningRestaurant } from '../helpers/getWinningRestaurant';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import useInterval from '../hooks/useInterval';
+import "../styles/PollingResults.scss";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -58,9 +59,17 @@ export default function PollingResults(props) {
         label: 'Votes',
         data: [pollData.restaurant_1_votes, pollData.restaurant_2_votes, pollData.restaurant_3_votes],
         options: {
+          plugins: {
             legend: {
-              display: false,
+              labels: {
+                display: "none",
+              }
             },
+            font: {
+              family: 'Quicksand',
+              size: 30,
+            }
+          }
         },
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -108,10 +117,11 @@ export default function PollingResults(props) {
 
 return(
   <Fragment>
-    {winningRestaurant && <div>
+    {winningRestaurant && <div className="poll-results">
       <Bar data={data} options={options} height={400}></Bar>
     </div>}
-    {winningRestaurant && <Item>
+    <br />
+    {winningRestaurant && <div className="winning-result-info">
       <h2>{winningRestaurant.restaurant_name}</h2>
       <h3>Business Hours:</h3>
       <h4>{winningRestaurant.business_hours}</h4>
@@ -120,7 +130,7 @@ return(
       <h4>{winningRestaurant.phone_number}</h4>
       <h3>Directions:</h3>
       <h4><a href={winningRestaurant.maps_directions} target="_blank"><img src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="75" height="75"/></a></h4>
-    </Item>   }
+    </div>}
   </Fragment>
 );  
 }
