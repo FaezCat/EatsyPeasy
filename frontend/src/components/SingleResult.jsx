@@ -127,6 +127,8 @@ export default function SingleResult(props) {
         </Item>
         <Item>
           <h3>Business Hours:</h3>
+          {selectedRestaurant.open_now && <h4>Open Now:<img className="open-sign" src='https://img.icons8.com/color/48/000000/open-sign.png' alt="open" /></h4>}
+          {!selectedRestaurant.open_now && <h4>Open Now:<img className="open-sign" src='https://img.icons8.com/fluency/48/000000/closed-sign.png' alt="closed" /></h4>}
           {/* <h4> {selectedRestaurant.business_hours}</h4> */}
           <BusinessHours business_hours={selectedRestaurant.business_hours}></BusinessHours>
           <h3>Contact Information:</h3>
