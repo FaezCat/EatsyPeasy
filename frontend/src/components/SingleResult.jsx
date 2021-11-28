@@ -117,11 +117,11 @@ export default function SingleResult(props) {
           </ImageListItem>
         </ImageList> */}
         </Item>
-        <Item>
+        {/* <Item>
           <h3>Menu</h3>
           <h3>Popular Dish </h3>
           <h3>Popular Vegan/Vegetarian/Gluten-Free Dish</h3>
-        </Item>
+        </Item> */}
         <Item>        
         <h4> Rating: {selectedRestaurant.ave_rating} - <Rating className="rating" name="read-only" defaultValue={selectedRestaurant.ave_rating} precision={0.25} readOnly /> - {selectedRestaurant.user_ratings_total} Reviews - {getPriceIcon(selectedRestaurant.price_level)}</h4>
         </Item>
@@ -132,7 +132,7 @@ export default function SingleResult(props) {
           {/* <h4> {selectedRestaurant.business_hours}</h4> */}
           <BusinessHours business_hours={selectedRestaurant.business_hours}></BusinessHours>
           <h3>Contact Information:</h3>
-          <h4>{selectedRestaurant.phone_number}</h4>
+          <h4>{selectedRestaurant.phone_number || "No number available"}</h4>
           <h4><a href={selectedRestaurant.website} target="_blank">{selectedRestaurant.website || "No website available"}</a></h4>
           <h3>Directions:</h3>
           <h4><a href={selectedRestaurant.maps_directions} target="_blank"><img className="maps_icon" src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="50" height="50"/></a> {selectedRestaurant.formatted_address}</h4>

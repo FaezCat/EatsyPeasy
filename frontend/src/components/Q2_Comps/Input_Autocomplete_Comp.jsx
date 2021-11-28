@@ -51,6 +51,7 @@ const restaurantCategories = [
   "South African",
   "American (New)",
   "American (Traditional)",
+  "Bar",
   "Arabian",
   "Argentine",
   "Armenian",

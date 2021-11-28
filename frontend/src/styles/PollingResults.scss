@@ -5,18 +5,45 @@
 }
 
 .winning-result-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-self: center;
-  width: 35%;
-  background-color: #fbe8a6;
+  width: 55%;
+  background-color: #fff;
+  margin-bottom: 50px;
+  border-radius: 10px;
+
+  .leading-choice-information {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  #business-hours {
+    // margin-right: 20px;
+    width: 33%;
+    font-size: 14px;
+  }
+
+  #contact-information {
+    width: 33%;
+  }
+
+  #directions {
+    width: 33%;
+  }
 
   h2 {
-    font-size: 18px;
+    color: darkorange;
+    font-size: 20px;
     text-align: center;
   }
 
   h3 {
     font-size: 16px;
     text-align: left;
+    padding-left: 55px;
   }
 
   h4 {
