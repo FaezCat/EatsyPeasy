@@ -130,11 +130,9 @@ export default function SingleResult(props) {
           {/* <h4> {selectedRestaurant.business_hours}</h4> */}
           <BusinessHours business_hours={selectedRestaurant.business_hours}></BusinessHours>
           <h3>Contact Information:</h3>
-          <h4><a href={selectedRestaurant.website} target="_blank">Website</a></h4>
           <h4>{selectedRestaurant.phone_number}</h4>
-          <h4><a href={selectedRestaurant.website} target="_blank">{selectedRestaurant.website}</a></h4>
+          <h4><a href={selectedRestaurant.website} target="_blank">{selectedRestaurant.website || "No website available"}</a></h4>
           <h3>Directions:</h3>
-          <h4>{selectedRestaurant.formatted_address}</h4>
           <h4><a href={selectedRestaurant.maps_directions} target="_blank"><img className="maps_icon" src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="50" height="50"/></a> {selectedRestaurant.formatted_address}</h4>
         </Item>
 
