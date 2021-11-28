@@ -64,7 +64,7 @@ export default function PollingPage(props) {
         textAlign='center' 
         padding={5}
         >
-        {selectedRestaurants.length > 0 && <h3>Click one of the choices above that you are craving!</h3>}
+        {selectedRestaurants.length > 0 && <h3 id="choose-text">Click one of the choices above that you are craving!</h3>}
   
         {<TextField 
           value={userName} 
