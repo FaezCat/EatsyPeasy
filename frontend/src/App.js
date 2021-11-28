@@ -1,6 +1,5 @@
 import { useState } from "react";
-import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import QuestionOne from "./components/QuestionOne";
@@ -10,11 +9,9 @@ import Results from "./components/Results";
 import LinkPage from "./components/LinkPage";
 import PollingPage from "./components/PollingPage";
 import PollingResults from "./components/PollingResults";
-import { useNavigate } from "react-router-dom";
+import "./App.css";
 
 function App() {
-
-  const navigate = useNavigate();
 
   const [answers, setAnswers] = useState({
     answerOne: "",
@@ -22,14 +19,10 @@ function App() {
     answerThree: [],
   });
 
-  const [results, setResults] = useState(false);
-
   const setAnswerOne = (answerOne) => setAnswers({ ...answers, answerOne });
   const setAnswerTwo = (answerTwo) => setAnswers({ ...answers, answerTwo });
   const setAnswerThree = (answerThree) =>
     setAnswers({ ...answers, answerThree });
-
-  const [restaurantObjs, setRestaurantObjs] = useState([]);
 
   return (
       <div className="background">
@@ -47,16 +40,11 @@ function App() {
           <Route
             path="/questionthree"
             element={
-              <QuestionThree
-                clickHandler={setAnswerThree}
-                results={results}
-                setResults={setResults}
-              />
-            }
+              <QuestionThree clickHandler={setAnswerThree}/>}
           />
           <Route
             path="/results"
-            element={<Results itemData={restaurantObjs} answers={answers}/>}
+            element={<Results answers={answers}/>}
           />
           <Route path="/linkpage" element={<LinkPage />} />
           <Route path="/poll/:alpha_numeric_id/results" element={<PollingResults />} />

@@ -1,9 +1,8 @@
 import axios from "axios";
 
+// this helper function takes the results of the first API call and returns an array of formatted objs to be used in the second API call (see addDetailsToRestaurantObjs below)
 export function createRestaurantObjs(results) {
-  // console.log("results.data:", results.data);
   const arrayOfResults = results.data.results;
-  console.log("results of text search:", arrayOfResults);
 
   const arrayOfRestaurantObjs = [];
 
@@ -11,25 +10,18 @@ export function createRestaurantObjs(results) {
     if (restaurant.business_status === "OPERATIONAL") {
       arrayOfRestaurantObjs.push({
         place_id: restaurant.place_id,
-        // restaurant_name: restaurant.name,
-        // ave_rating: restaurant.rating,
-        // total_ratings: restaurant.user_ratings_total,
-        // restaurant_photo_ref: restaurant.photos[0].photo_reference,
-        // restaurant_photo_width: restaurant.photos[0].width,
-        // we need to update these together to what data we retrieve at first (that is unavailable from the places API)
       });
     }
   }
   return arrayOfRestaurantObjs;
 }
 
+// this helper function assists the addDetailsToRestaurantObjs helper function below to reformat the existing restaurant objs (which only have place_id) to contain a suite of additional information from the API call (placeDetails)
 function updateRestaurantObj(restaurant, placeDetails) {
-  console.log("details of 2nd api call:", placeDetails);
   restaurant.business_hours = placeDetails.opening_hours.weekday_text;
   restaurant.phone_number = placeDetails.formatted_phone_number;
   restaurant.maps_directions = placeDetails.url;
   restaurant.website = placeDetails.website;
-  // new keys
   restaurant.restaurant_name = placeDetails.name;
   restaurant.ave_rating = placeDetails.rating;
   restaurant.restaurant_photo_ref = placeDetails.photos[0].photo_reference;
@@ -38,37 +30,34 @@ function updateRestaurantObj(restaurant, placeDetails) {
   restaurant.user_ratings_total = placeDetails.user_ratings_total;
   restaurant.price_level = placeDetails.price_level;
   restaurant.open_now = placeDetails.opening_hours.open_now;
-
-  // console.log("updated restaurant obj:", restaurant);
   return restaurant;
 }
 
 export async function addDetailsToRestaurantObjs(createdRestObjs) {
-  const url =
-    "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/details/json?";
+  const url = "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/details/json?";
   const apiKey = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
   const updatedObjs = [];
   const promises = [];
 
   for (const restaurant of createdRestObjs) {
+    // we are using the place_id contained in each restaurant obj to make an individual API call per obj
     const restaurantId = restaurant.place_id;
     const params = {
       place_id: restaurantId,
       key: apiKey,
     };
+    // each promise contains an individual API call (as the initial one did not give us all the information we required) followed by data formatting into useable objects for our display and save purposes
     promises.push(
       axios.get(url, { params }).then((response) => {
         const placeDetails = response.data.result;
-        // console.log("placeDetails:", placeDetails);
+        // this helper function actually does the formatting of each restaurant obj to contain the new information pulled from each API call
         updatedObjs.push(updateRestaurantObj(restaurant, placeDetails));
       })
     );
   }
-  // console.log("promises:", promises);
-
+  // here we are awaiting the resolution of all promises prior to returning an array containing all properly formatted restaurant objects
   return await Promise.all(promises)
     .then(() => {
-      // console.log("updatedObjsArray:", updatedObjs);
       return updatedObjs;
     })
     .catch((err) => {

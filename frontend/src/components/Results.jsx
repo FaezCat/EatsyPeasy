@@ -1,17 +1,17 @@
 import { Fragment, useState, useEffect } from "react";
-import SingleResult from "./SingleResult";
-import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
-import generateRandomString from "../helpers/UniqueLink";
-import axios from "axios";
 import { getPrice, getQuery } from "../helpers/GooglePlacesAPIFunctions";
 import {
   createRestaurantObjs,
   addDetailsToRestaurantObjs,
 } from "../helpers/CreateRestaurantObjs";
+import axios from "axios";
+import SingleResult from "./SingleResult";
+import Button from '@mui/material/Button';
 import LinearIndeterminate from "./LoadingBar";
-import "../styles/Results.scss";
 import Box from '@mui/material/Box';
+import generateRandomString from "../helpers/UniqueLink";
+import "../styles/Results.scss";
 
 export default function Results(props) {
 
@@ -21,62 +21,55 @@ export default function Results(props) {
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
 
   useEffect(() => {
-      const range = getPrice(props.answers.answerThree);
-      const query = getQuery(props.answers.answerOne, props.answers.answerTwo);
-      //API cors proxy that has some limits (do not use):
-      //const url = "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/textsearch/json?";
+    const range = getPrice(props.answers.answerThree);
+    const query = getQuery(props.answers.answerOne, props.answers.answerTwo);
 
-      //API cors proxy that works (for our project scale):
-      const url =
-        "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/textsearch/json?";
-      const params = {
-        query: query,
-        minprice: range[0],
-        maxprice: range[1],
-        key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY,
-      };
-
-      axios
-        .get(url, { params })
-        .then(function (response) {
-          const createdRestObjs = createRestaurantObjs(response);
-          console.log("initial objs from first call:", createdRestObjs);
-          return createdRestObjs;
-        })
-        .then((createdRestObjs) => {
-          const updatedObjs = addDetailsToRestaurantObjs(createdRestObjs);
-          console.log("updated objs 2nd call:", updatedObjs);
-          return updatedObjs;
-        })
-        .then(function (updatedObjs) {
-          console.log(
-            "the .then updated objs before state update:",
-            updatedObjs
-          );
-          setItemData(updatedObjs);
-          setSelectedRestaurants([updatedObjs[0], updatedObjs[1], updatedObjs[2]]);
-          console.log([updatedObjs[0], updatedObjs[1], updatedObjs[2]])
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+    //API cors proxy that works (for our project scale):
+    const url =
+      "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/textsearch/json?";
+    const params = {
+      query: query,
+      minprice: range[0],
+      maxprice: range[1],
+      key: process.env.REACT_APP_GOOGLE_PLACES_API_KEY,
+    };
+    
+    // initial call to the google places text search API - fetches up to 20 records in one go
+    axios
+      .get(url, { params })
+      .then(function (response) {
+        // this helper function returns an array of up to 20 objs (based on what was returned in the API call) containing the place_id key needed for our second API call
+        const createdRestObjs = createRestaurantObjs(response);
+        return createdRestObjs;
+      })
+      .then((createdRestObjs) => {
+        // this helper function takes the array of objs above and makes an API call per obj to then populate each with the additional keys and information needed for our singleresult components below
+        const updatedObjs = addDetailsToRestaurantObjs(createdRestObjs);
+        return updatedObjs;
+      })
+      .then(function (updatedObjs) {
+        // here we are setting the itemData state to house the array of properly formatted restaurant objs (now containing all information) 
+        setItemData(updatedObjs);
+        // here we are setting the initial selectedRestaurants state to contain the first 3 restaurant objs (for display purposes in the singleresult components below)
+        setSelectedRestaurants([updatedObjs[0], updatedObjs[1], updatedObjs[2]]);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
-  const [poll, setPoll] = useState(null); //poll should be one object matching the ERD later
+  const [poll, setPoll] = useState(null);
 
+  // this axios call actually creates a poll record in our polls table within the postgresql db - triggered by the button component at the bottom of the page
   useEffect(() => {
     if (poll) {
-    console.log("poll", poll);
     axios({
       method: 'post',
-      url: 'http://localhost:3000/polls/create', //make sure to point this to backend
+      url: 'http://localhost:3000/polls/create',
       data: poll
     })
-    .then(function (response) {
-      console.log("axios request posted");
-      console.log(response);
-    })
-    .then((pollObj)=>{
+    .then(()=>{
+      // upon creating the poll record, you are then redirected to the linkpage
       navigate('/linkpage', { state: {poll: poll} });
     })
     .catch(function (error) {
@@ -85,10 +78,14 @@ export default function Results(props) {
   }
   }, [poll])
 
+  // this numericId is what becomes the alpha_numeric_id shown on each poll (and what you use to access each poll as well)
   const numericId = generateRandomString();
   
+  // this function actually creates the properly formatted poll obj that we use to create our poll record in our db
   function createPoll (selectedRestaurants) {
     const poll = {};
+
+    // our attempt at making this part of the code DRYer as we need each key for all 3 restaurants (1, 2, 3)
     for (let i = 0; i < selectedRestaurants.length; i++) {
       const restPlaceID = `restaurant_${i+1}_place_id`;
       const restName = `restaurant_${i+1}_name`;
@@ -97,19 +94,22 @@ export default function Results(props) {
       const restNumber = `restaurant_${i+1}_phone_number`;
       const restWebsite = `restaurant_${i+1}_website`;
       const restMaps = `restaurant_${i+1}_maps_directions`;
+      
       poll[restPlaceID] = selectedRestaurants[i].place_id;
       poll[restName] = selectedRestaurants[i].restaurant_name;
       poll[restVotes] = 0;
+      // the business_hours are housed in an array hence the JSON string here
       poll[restHours] = JSON.stringify(selectedRestaurants[i].business_hours);
       poll[restNumber] = selectedRestaurants[i].phone_number;
       poll[restWebsite] = selectedRestaurants[i].website; 
       poll[restMaps] = selectedRestaurants[i].maps_directions;
     }
+    
     poll["alpha_numeric_id"] = numericId;
-    console.log("poll obj:", poll);
     return poll;
   }
 
+  // visual components + conditional rendering for all 3 singleresult display components + the loading bar aka LinearIndeterminate component
   return (
     <Fragment>
       <div className="page-number-display">
@@ -129,9 +129,8 @@ export default function Results(props) {
         <h3 id="generate-poll-text">Need some input? Generate a poll to share with your friends!</h3>
         <Button 
             style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
-            onClick={() => {
-              const pollObj = createPoll(selectedRestaurants);
-              setPoll(pollObj); //trigger to do POST request
+            onClick={() => {const pollObj = createPoll(selectedRestaurants); setPoll(pollObj); 
+            //trigger to do POST request
             }}>Generate Poll
         </Button>
       </Box>}

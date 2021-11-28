@@ -1,14 +1,8 @@
-// .all-components-less-button {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// }
-
 .toggle-button-group {
   display: flex;
   flex-direction: row;
-  width: 100%;
   justify-content: center;
+  width: 100%;
 }
 
 .q3-question {
@@ -28,8 +22,8 @@
 }
 
 .centering {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }

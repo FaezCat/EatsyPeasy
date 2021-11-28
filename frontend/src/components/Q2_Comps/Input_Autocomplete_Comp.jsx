@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Fragment, useState } from "react";
+import { createFilterOptions } from '@mui/base';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
-import { createFilterOptions } from '@mui/base';
 
 export default function FreeSolo(props) {
 
@@ -51,7 +51,6 @@ const restaurantCategories = [
   "South African",
   "American (New)",
   "American (Traditional)",
-  "Bar",
   "Arabian",
   "Argentine",
   "Armenian",
@@ -59,6 +58,7 @@ const restaurantCategories = [
   "Australian",
   "Austrian",
   "Bangladeshi",
+  "Bar",
   "Barbeque",
   "Basque",
   "Belgian",

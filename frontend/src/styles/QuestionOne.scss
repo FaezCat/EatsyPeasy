@@ -1,3 +1,10 @@
+.question-one-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .page-number-display {
   color: gray;
   font-family: 'Quicksand', sans-serif;
@@ -13,11 +20,4 @@
   margin: 90px 0px 30px 0px;
   text-align: center;
   width: 80%;
-}
-
-.question-one-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }

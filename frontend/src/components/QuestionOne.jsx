@@ -36,7 +36,7 @@ export default function QuestionOne(props) {
         </Box>
         <Button 
           style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
-          onClick={() => {props.clickHandler(answer); navigate('/questiontwo'); console.log(answer);}}>Next
+          onClick={() => {props.clickHandler(answer); navigate('/questiontwo')}}>Next
         </Button>
       </div>
     </Fragment>

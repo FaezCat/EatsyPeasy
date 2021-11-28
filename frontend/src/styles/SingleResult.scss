@@ -9,30 +9,16 @@ body {
   margin: 0 10px 0 5px;
 }
 
-@media screen and (max-width: 768px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
-}
-
 .restaurant-image {
-  width: 100%;
+  border-radius: 10px;
   height: 300px;
   margin-top: 20px;
-  border-radius: 10px;
+  width: 100%;
 }
 
-// .rating, .maps_icon {
-//   line-height: 1.5;
-//   display: inline-block;
-//   vertical-align: text-bottom;
-// }
-
 h4 {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
 }
 
@@ -45,10 +31,18 @@ a {
 }
 
 ul {
-  text-align: left;
   padding-left: 15%;
+  text-align: left;
 }
 
 .open-sign {
   margin-left: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .column {
+    display: block;
+    margin-bottom: 20px;
+    width: 100%;
+  }
 }
