@@ -116,6 +116,8 @@ export default function PollingResults(props) {
     maintainAspectRatio: false
   };
 
+  console.log(winningRestaurant);
+
 return(
   <Fragment>
     {winningRestaurant && <div className="poll-results">
@@ -127,10 +129,10 @@ return(
       <h3>Business Hours:</h3>
       <BusinessHours business_hours={winningRestaurant.business_hours}></BusinessHours>
       <h3>Contact Information:</h3>
-      <h4><a href={winningRestaurant.website} target="_blank">Website</a></h4>
       <h4>{winningRestaurant.phone_number}</h4>
+      <h4><a href={winningRestaurant.website} target="_blank">{winningRestaurant.website || "No website available"}</a></h4>
       <h3>Directions:</h3>
-      <h4><a href={winningRestaurant.maps_directions} target="_blank"><img src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="75" height="75"/></a></h4>
+      <h4><a href={winningRestaurant.maps_directions} target="_blank"><img className="maps_icon" src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="50" height="50"/></a></h4>
     </div>}
   </Fragment>
 );  
