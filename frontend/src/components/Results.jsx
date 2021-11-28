@@ -126,7 +126,7 @@ export default function Results(props) {
       </div>
 
        {selectedRestaurants.length > 0 && <Box textAlign='center' padding={5}>
-        <h3>Need some input? Generate a poll to share with your friends!</h3>
+        <h3 id="generate-poll-text">Need some input? Generate a poll to share with your friends!</h3>
         <Button 
             style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
             onClick={() => {

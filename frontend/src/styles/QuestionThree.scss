@@ -4,21 +4,32 @@
 //   align-items: center;
 // }
 
-.q3-question {
-  color: darkorange;
-  font-family: 'Quicksand', sans-serif;
-  font-size: 24px;
-  margin: 90px 0px 30px 0px;
-  text-align: center;
-  width: 80%;
+.toggle-button-group {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
 }
 
+.q3-question {
+  color: darkorange;
+  font-family: "Quicksand", sans-serif;
+  font-size: 24px;
+  text-align: center;
+  width: 100%;
+}
 
 .q3-question-subtext {
   color: darkorange;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 20px;
-  margin: 90px 0px 30px 0px;
   text-align: center;
-  width: 80%;
+  width: 100%;
+}
+
+.centering {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
