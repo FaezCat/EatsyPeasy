@@ -8,6 +8,7 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import useInterval from '../hooks/useInterval';
 import "../styles/PollingResults.scss";
+import BusinessHours from './SingleResult_Comps/BusinessHours';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -115,6 +116,8 @@ export default function PollingResults(props) {
     maintainAspectRatio: false
   };
 
+  console.log(winningRestaurant);
+
 return(
   <Fragment>
     {winningRestaurant && <div className="poll-results">
@@ -124,12 +127,12 @@ return(
     {winningRestaurant && <div className="winning-result-info">
       <h2>{winningRestaurant.restaurant_name}</h2>
       <h3>Business Hours:</h3>
-      <h4>{winningRestaurant.business_hours}</h4>
+      <BusinessHours business_hours={winningRestaurant.business_hours}></BusinessHours>
       <h3>Contact Information:</h3>
-      <h4><a href={winningRestaurant.website} target="_blank">Website</a></h4>
       <h4>{winningRestaurant.phone_number}</h4>
+      <h4><a href={winningRestaurant.website} target="_blank">{winningRestaurant.website || "No website available"}</a></h4>
       <h3>Directions:</h3>
-      <h4><a href={winningRestaurant.maps_directions} target="_blank"><img src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="75" height="75"/></a></h4>
+      <h4><a href={winningRestaurant.maps_directions} target="_blank"><img className="maps_icon" src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="50" height="50"/></a></h4>
     </div>}
   </Fragment>
 );  
