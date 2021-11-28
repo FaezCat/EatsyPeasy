@@ -11,6 +11,6 @@ export function getPrice(x) {
 export function getQuery(answers_answerOne, answers_answerTwo) {
   //Need to concatenate the array in answers_answerTwo to a single string
   const stringAnsTwo = answers_answerTwo.join(" "); //join into one string separated by one space " "
-  const query = `${answers_answerOne} ${stringAnsTwo}`;
+  const query = `${answers_answerOne} ${stringAnsTwo} food`;
   return query;
 }
