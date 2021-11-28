@@ -124,16 +124,28 @@ return(
       <Bar data={data} options={options} height={400}></Bar>
     </div>}
     <br />
+    
+    {/* <Item > */}
     {winningRestaurant && <div className="winning-result-info">
       <h2>{winningRestaurant.restaurant_name}</h2>
+      <div className="leading-choice-information">
+      <div id="business-hours">
       <h3>Business Hours:</h3>
       <BusinessHours business_hours={winningRestaurant.business_hours}></BusinessHours>
+      </div>
+      <div id="contact-information">
       <h3>Contact Information:</h3>
-      <h4>{winningRestaurant.phone_number}</h4>
+      <h4>{winningRestaurant.phone_number || "No number available"}</h4>
       <h4><a href={winningRestaurant.website} target="_blank">{winningRestaurant.website || "No website available"}</a></h4>
+      </div>
+      <div id="directions">
       <h3>Directions:</h3>
       <h4><a href={winningRestaurant.maps_directions} target="_blank"><img className="maps_icon" src="https://www.google.com/images/branding/product/2x/maps_96in128dp.png" width="50" height="50"/></a></h4>
+      </div>
+      </div>
     </div>}
+    {/* </Item> */}
+
   </Fragment>
 );  
 }

@@ -37,6 +37,7 @@ function updateRestaurantObj(restaurant, placeDetails) {
   restaurant.formatted_address = placeDetails.formatted_address;
   restaurant.user_ratings_total = placeDetails.user_ratings_total;
   restaurant.price_level = placeDetails.price_level;
+  restaurant.open_now = placeDetails.opening_hours.open_now;
 
   // console.log("updated restaurant obj:", restaurant);
   return restaurant;
