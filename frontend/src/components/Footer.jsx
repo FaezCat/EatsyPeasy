@@ -7,7 +7,6 @@ export default function Footer() {
     
     <div className="footer">
       <div>Contact Us: </div>
-
       <p>Faez: </p>
       <a href="https://github.com/FaezCat"><FontAwesomeIcon icon={faGithub} /></a> 
       {/* change to actual linkedin */}
@@ -20,8 +19,6 @@ export default function Footer() {
       <p>Claudia: </p>
       <a href="https://github.com/fltfx"><FontAwesomeIcon icon={faGithub} /></a>
       <a href="https://www.linkedin.com/in/claudia-wong-858a2588/"><FontAwesomeIcon icon={faLinkedin} /></a>
-
-      <p className="copyright">Copyright © 2021</p>
     </div>
 
   );

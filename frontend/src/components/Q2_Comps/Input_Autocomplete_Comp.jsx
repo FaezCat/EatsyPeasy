@@ -21,7 +21,7 @@ export default function FreeSolo(props) {
 
   return (
     <Fragment>
-    <Stack spacing={1} sx={{ width: 300 }}>
+    <Stack spacing={1} sx={{ width: 320 }}>
       <Autocomplete
         id="food-category"
         filterOptions={filterOptions}
@@ -36,7 +36,7 @@ export default function FreeSolo(props) {
           setInputValue(newInputValue);
         }}
         inputValue={inputValue}
-        renderInput={(params) => <TextField {...params} label="What type of food are you craving?" />}
+        renderInput={(params) => <TextField {...params} label="What type of food are you craving?" InputLabelProps={{style: {fontFamily: 'Quicksand, sans-serif'}}} />}
       />
     </Stack>
     </Fragment>
