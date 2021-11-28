@@ -1,8 +1,6 @@
 import React from "react";
-// import classNames from "classnames";
 
-// import "components/Button.scss";
-
+//returns BusinessHours component with formatting 
 export default function BusinessHours(props) {
   const {business_hours} = props;
 
@@ -13,6 +11,7 @@ export default function BusinessHours(props) {
       {day}
     </li>
     );
+
     return (
       <ul>{listItems}</ul>
     );
@@ -23,6 +22,7 @@ export default function BusinessHours(props) {
       {day}
     </li>
   );
+
   return (
     <ul>{listItems}</ul>
   );

@@ -1,37 +1,29 @@
 import { Fragment, useState, useEffect } from "react";
-import SingleResult from "./SingleResult";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import { useParams } from "react-router-dom";
 import { organizePollJSON } from "../helpers/organizePollJSON";
 import { addDetailsToRestaurantObjs } from "../helpers/CreateRestaurantObjs";
+import axios from "axios";
+import SingleResult from "./SingleResult";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 import LinearIndeterminate from "./LoadingBar";
 import "../styles/PollingPage.scss";
 
 export default function PollingPage(props) {
-
-  const { alpha_numeric_id } = useParams();
-
-  const navigate = useNavigate();
-
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
   const [userName, setUserName] = useState("");
-  
+  const { alpha_numeric_id } = useParams();
+
   useEffect(() => {
-    
     axios({
       method: 'get', //need to update this to GET the 3 rest objs to populate this page
       url: `http://localhost:3000/polls/show/${alpha_numeric_id}`, //make sure to point this to backend
     })
     .then(function (response) {
-      console.log("should be the returned 1 poll:", response);
       //add a function to oragnize the incoming poll data array
       const createdRestObjs = organizePollJSON(response);
-      console.log("createdRestObjs", createdRestObjs);
-      //and make the get call for photo etc
+      //and make the get call for details and photo etc
       const updatedObjs = addDetailsToRestaurantObjs(createdRestObjs);
-      console.log("updatedObjs", updatedObjs);
       return updatedObjs;
     })
     .then((updatedObjs)=> {

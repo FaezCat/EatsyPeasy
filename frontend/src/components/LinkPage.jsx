@@ -1,23 +1,22 @@
-import Clipboard from 'clipboard/dist/clipboard.min'
 import { Fragment } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import Clipboard from 'clipboard/dist/clipboard.min'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import IconButton from '@mui/material/IconButton';
 import "../styles/LinkPage.scss"
 
-
 export default function LinkPage(props) {
   
+  // we had to use the useLocation hook here in order to access the appropriate alpha_numeric_id per poll generated in the "Results" component
   const location = useLocation();
-  //console.log("location.state.alpha:", location.state.poll.alpha_numeric_id);
-
+  // Clipboard allows us to easily copy the poll link to then send to others
   new Clipboard('.btn')
   const navigate = useNavigate();
+
   return (
     <Fragment>
-    <div className="link-text">
+    <div className="linkpage-text">
       <h1>Unique link to share with your friends:</h1>
       <div id="link-text">
         localhost:3001/poll/{location.state.poll.alpha_numeric_id}
@@ -25,11 +24,6 @@ export default function LinkPage(props) {
         <ContentCopyIcon alt="Copy to clipboard"></ContentCopyIcon>
       </IconButton>
       </div>
-      {/* <button className="btn" data-clipboard-target="#link-text">
-        <img src="https://img.icons8.com/office/16/000000/clipboard.png" alt="Copy to clipboard" />
-      </button> */}
-
-
 
 <Button 
 style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 

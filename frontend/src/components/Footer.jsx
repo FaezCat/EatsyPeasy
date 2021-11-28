@@ -1,10 +1,9 @@
-import "../styles/Footer.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faLinkedin, faGithub} from "@fortawesome/free-brands-svg-icons";
+import "../styles/Footer.scss";
 
 export default function Footer() {
   return (
-    
     <div className="footer">
       <div>Contact Us: </div>
       <p>Faez: </p>
@@ -20,6 +19,5 @@ export default function Footer() {
       <a href="https://github.com/fltfx"><FontAwesomeIcon icon={faGithub} /></a>
       <a href="https://www.linkedin.com/in/claudia-wong-858a2588/"><FontAwesomeIcon icon={faLinkedin} /></a>
     </div>
-
   );
 }

@@ -1,5 +1,4 @@
 .poll-results {
-  // margin: 0 20px 0 20px;
   align-self: center;
   width: 75%;
 }
@@ -20,34 +19,33 @@
     justify-content: center;
   }
 
-  #business-hours {
-    // margin-right: 20px;
-    width: 33%;
-    font-size: 14px;
-  }
-
-  #contact-information {
-    width: 33%;
-  }
-
-  #directions {
-    width: 33%;
-  }
-
   h2 {
     color: darkorange;
     font-size: 20px;
     text-align: center;
   }
-
+  
   h3 {
     font-size: 16px;
     text-align: left;
     padding-left: 55px;
   }
-
+  
   h4 {
     font-size: 14px;
     text-align: center;
+  }
+
+  #business-hours {
+    width: 33%;
+    font-size: 14px;
+  }
+  
+  #contact-information {
+    width: 33%;
+  }
+  
+  #directions {
+    width: 33%;
   }
 }

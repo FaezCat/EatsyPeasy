@@ -1,11 +1,11 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useState } from 'react';
 
 export default function CheckboxesGroup(props) {
   const [checkboxState, setCheckboxState] = useState({
@@ -41,8 +41,6 @@ export default function CheckboxesGroup(props) {
         props.onUncheck("gluten free");
       }
     }
-
-    console.log(checkboxState[checkboxName])
   };
 
   const { vegan, vegetarian, glutenFree } = checkboxState;

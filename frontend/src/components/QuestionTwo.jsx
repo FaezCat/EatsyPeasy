@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react"
-import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom"
-// the search bar comp
+import Button from '@mui/material/Button';
+// the search bar comp + autocomplete
 import FreeSolo from "./Q2_Comps/Input_Autocomplete_Comp";
 // the table comp
 import DenseTable from "./Q2_Comps/Table_Comp";
@@ -16,7 +16,7 @@ export default function QuestionTwo(props) {
   const [choices, setChoices] = useState([]);
   const [dietaryPrefs, setDietaryPrefs] = useState([]);
 
-  // this function concatenates the two arrays of food query params which will be used to update the questiontwo state
+  // this function concatenates the two arrays of food query params (choices and dietaryprefs) which will be used to update the questiontwo state
   const finalQuestionTwoState = (choices, dietaryPrefs) => {
     const answerArray = choices.concat(dietaryPrefs);
     return answerArray;
