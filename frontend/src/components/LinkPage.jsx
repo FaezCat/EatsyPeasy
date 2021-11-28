@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import IconButton from '@mui/material/IconButton';
+import "../styles/LinkPage.scss"
 
 
 export default function LinkPage(props) {
@@ -20,28 +21,21 @@ export default function LinkPage(props) {
       <h1>Unique link to share with your friends:</h1>
       <div id="link-text">
         localhost:3001/poll/{location.state.poll.alpha_numeric_id}
+      <IconButton aria-label="Copy to clipboard" className="btn" data-clipboard-target="#link-text">
+        <ContentCopyIcon alt="Copy to clipboard"></ContentCopyIcon>
+      </IconButton>
       </div>
       {/* <button className="btn" data-clipboard-target="#link-text">
         <img src="https://img.icons8.com/office/16/000000/clipboard.png" alt="Copy to clipboard" />
       </button> */}
 
-  <TextField 
-              value={`localhost:3001/poll/${location.state.poll.alpha_numeric_id}`} 
-              // onChange={(event) => setAnswer(event.target.value)} 
-              InputLabelProps={{style: {fontFamily: 'Quicksand, sans-serif'}}} 
-              fullWidth id="input-with-sx" 
-              />
 
-<IconButton aria-label="Copy to clipboard" className="btn" data-clipboard-target="#link-text">
-  <ContentCopyIcon alt="Copy to clipboard"></ContentCopyIcon>
-</IconButton>
-
-    </div>
 
 <Button 
 style={{backgroundColor: "#0198E1", fontFamily: 'Quicksand, sans-serif'}} variant="contained" 
 onClick={() => {navigate(`../poll/${location.state.poll.alpha_numeric_id}`);}}>Vote
 </Button>
+</div>
 </Fragment>
   )
 }

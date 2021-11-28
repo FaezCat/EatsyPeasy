@@ -8,6 +8,7 @@ import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import useInterval from '../hooks/useInterval';
 import "../styles/PollingResults.scss";
+import BusinessHours from './SingleResult_Comps/BusinessHours';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -124,7 +125,7 @@ return(
     {winningRestaurant && <div className="winning-result-info">
       <h2>{winningRestaurant.restaurant_name}</h2>
       <h3>Business Hours:</h3>
-      <h4>{winningRestaurant.business_hours}</h4>
+      <BusinessHours business_hours={winningRestaurant.business_hours}></BusinessHours>
       <h3>Contact Information:</h3>
       <h4><a href={winningRestaurant.website} target="_blank">Website</a></h4>
       <h4>{winningRestaurant.phone_number}</h4>
