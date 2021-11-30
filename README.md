@@ -1,6 +1,10 @@
 # EatsyPeasy
 A single page application to help you and your friends choose where to eat! Answer 3 simple questions to generate a customized selection of restaurants, and have the option to send a poll to your friends as well!
 
+Note: The repos (two separate repos, one for front-end and another for back-end) that were used for employment are located here:
+- frontend (deployed on Netlify): https://github.com/cynthiaaleung/EatsyPeasy-frontend
+- backend (deployed on Heroku): https://github.com/cynthiaaleung/EatsyPeasy-backend
+
 ## Dependencies & Tech Stack
 * Ruby 2.6.6
 * Rails 4.2.11 [Rails Guide](http://guides.rubyonrails.org/v4.2/)
