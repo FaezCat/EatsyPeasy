@@ -134,17 +134,17 @@ rails s
 ##### EatsyPeasy landing page and 3 questions to display customized restaurant results:
 
 <div align="center">
-![eatsypeasy1](https://media.giphy.com/media/e3NJKSovarIin9AxgG/giphy.gif)
+<img src="https://media.giphy.com/media/e3NJKSovarIin9AxgG/giphy.gif">
 </div>
 
 ##### Get customized results, generate a poll, and share a unique link with friends:
 
 <div align="center">
-![eatsypeasy2](https://media.giphy.com/media/yh7wWGrqEgTvuMLerL/giphy.gif)
+<img src="https://media.giphy.com/media/yh7wWGrqEgTvuMLerL/giphy.gif">
 </div>
 
 ##### Vote for your favorite restaurant using the unique link and view the leading option's information:
 
 <div align="center">
-![eatsypeasy3](https://media.giphy.com/media/6RcfzC5Y9I7sGAd1Tk/giphy.gif)
+<img src="https://media.giphy.com/media/6RcfzC5Y9I7sGAd1Tk/giphy.gif">
 </div>
