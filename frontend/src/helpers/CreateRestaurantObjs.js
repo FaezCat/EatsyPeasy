@@ -3,11 +3,15 @@ import axios from "axios";
 // this helper function takes the results of the first API call and returns an array of formatted objs to be used in the second API call (see addDetailsToRestaurantObjs below)
 export function createRestaurantObjs(results) {
   const arrayOfResults = results.data.results;
+  console.log(arrayOfResults);
 
   const arrayOfRestaurantObjs = [];
 
   for (let restaurant of arrayOfResults) {
-    if (restaurant.business_status === "OPERATIONAL") {
+    if (
+      restaurant.business_status === "OPERATIONAL" &&
+      restaurant.rating >= 4
+    ) {
       arrayOfRestaurantObjs.push({
         place_id: restaurant.place_id,
       });
