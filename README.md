@@ -16,11 +16,11 @@ Note: The repos (two separate repos, one for front-end and another for back-end)
 - React DOM 17.0.2
 - React Router
 - Google Places API
-- [thingproxy](https://eatsypeasy.netlify.app/poll/XpDiYO) **NOTE: this dependency is only for local copies - not for deployment (see the two repos above for deployment)**
 - Axios
 - Chart.js
 - Clipboard.js
 - Material UI
+- [thingproxy](https://eatsypeasy.netlify.app/poll/XpDiYO) **NOTE: this dependency is only for local copies - not for deployment versions (see the two repos above for deployment)**
 
 ## Full Application Development (self-hosted)
 
