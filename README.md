@@ -22,22 +22,6 @@ Note: The repos (two separate repos, one for front-end and another for back-end)
 - Clipboard.js
 - Material UI
 
-## Getting Started
-
-### On front-end:
-
-```
-npm start
-```
-
-Go to localhost:3001 to view the app.
-
-### On back-end:
-
-```
-rails s
-```
-
 ## Full Application Development (self-hosted)
 
 Default port settings:
@@ -130,3 +114,23 @@ end
 ```
 
 3. Optional: By default, the backend is set to `http://localhost:3000`. If using a different back-end port, the API get/post requests in the front-end will need to be updated. This can be done by searching `http://localhost:3000` and replacing the port with your new back-end port number.
+
+## Starting your Servers:
+
+### On front-end:
+
+```
+npm start
+```
+
+Go to localhost:3001 to view the app.
+
+### On back-end:
+
+```
+rails s
+```
+
+["eatsypeasy1"](https://giphy.com/gifs/e3NJKSovarIin9AxgG)
+["eatsypeasy2"](https://giphy.com/gifs/yh7wWGrqEgTvuMLerL)
+["eatsypeasy3"](https://giphy.com/gifs/6RcfzC5Y9I7sGAd1Tk)
