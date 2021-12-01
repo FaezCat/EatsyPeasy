@@ -16,7 +16,6 @@ Note: The repos (two separate repos, one for front-end and another for back-end)
 - React DOM 17.0.2
 - React Router
 - Google Places API
-- [thingproxy](https://github.com/Freeboard/thingproxy)
 - Axios
 - Chart.js
 - Clipboard.js
