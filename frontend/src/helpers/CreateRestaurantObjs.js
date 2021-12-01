@@ -34,9 +34,11 @@ function updateRestaurantObj(restaurant, placeDetails) {
 }
 
 export async function addDetailsToRestaurantObjs(createdRestObjs) {
-  const url = "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/details/json?";
+  const url =
+    "https://thingproxy.freeboard.io/fetch/https://maps.googleapis.com/maps/api/place/details/json?";
   const apiKey = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
   const updatedObjs = [];
+  const correctedObjs = [];
   const promises = [];
 
   for (const restaurant of createdRestObjs) {
@@ -58,7 +60,16 @@ export async function addDetailsToRestaurantObjs(createdRestObjs) {
   // here we are awaiting the resolution of all promises prior to returning an array containing all properly formatted restaurant objects
   return await Promise.all(promises)
     .then(() => {
-      return updatedObjs;
+      // this additional set of nested loops was added because the promises above are resolving in different orders but we need consistent objs being returned (same order each time)
+      for (const restaurant of createdRestObjs) {
+        for (let i = 0; i < updatedObjs.length; i++) {
+          if (restaurant.place_id === updatedObjs[i].place_id) {
+            correctedObjs.push(updatedObjs[i]);
+          }
+        }
+      }
+
+      return correctedObjs;
     })
     .catch((err) => {
       console.log(err);
