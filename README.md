@@ -131,6 +131,6 @@ Go to localhost:3001 to view the app.
 rails s
 ```
 
-["eatsypeasy1"](https://giphy.com/gifs/e3NJKSovarIin9AxgG)
-["eatsypeasy2"](https://giphy.com/gifs/yh7wWGrqEgTvuMLerL)
-["eatsypeasy3"](https://giphy.com/gifs/6RcfzC5Y9I7sGAd1Tk)
+![eatsypeasy1](https://giphy.com/gifs/e3NJKSovarIin9AxgG)
+![eatsypeasy2](https://giphy.com/gifs/yh7wWGrqEgTvuMLerL)
+![eatsypeasy3](https://giphy.com/gifs/6RcfzC5Y9I7sGAd1Tk)
